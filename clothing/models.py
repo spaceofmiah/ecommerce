@@ -9,6 +9,8 @@ class Cloth(models.Model):
     material_type = models.CharField(max_length=100)        # a cloth should have a material_type
     date_added = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='clothes/images/')
+    colour = models.CharField(max_length=30, default="black")
+    amount = models.IntegerField()
 
     def __str__(self):
         return self.name.title()
