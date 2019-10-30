@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Editor configurations
+.vscode
+
+# Pip requirements
+requirements.txt
+
 # C extensions
 *.so
 
