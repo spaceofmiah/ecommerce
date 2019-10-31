@@ -1,0 +1,31 @@
+.wrapper h2 {
+    text-align: center;
+    font-size: 34px;
+    color: #b00978;
+}
+
+.cloth-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cloth-list .cloth {
+    border: 1.3px solid #ccc;
+    padding: 8px;
+    width: 230px;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    line-height: 12px;
+    margin: 8px 18px;
+}
+
+.cloth-list .cloth img {
+    width: 100%;
+}
+
+.cloth-list .cloth h4 {
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    color: rgb(175, 5, 118);
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Available clothes</title>
+    <link rel="stylesheet" href="{% static 'clothing/styles.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+            <h2>All Clothes</h2>
+        <div class="cloth-list">
+            {% if cloth_list %}
+                {% for cloth in cloth_list %}
+                    <div class="cloth">
+                        <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
+                        <h4>{{ cloth.name }}</h4>
+                        <p>{{ cloth.material_type }}</p>
+                        <p>$ {{ cloth.price }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">
+                    Cloth store is empty
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
