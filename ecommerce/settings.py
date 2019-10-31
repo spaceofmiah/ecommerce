@@ -121,5 +121,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
+# Additional locations the staticfiles app will traverse in search of static files
+STATICFILES_DIRS = [BASE_DIR + '/static/',]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
