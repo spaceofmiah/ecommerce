@@ -10,15 +10,16 @@
 </head>
 <body>
     <div class="wrapper">
-            <form action="{% url 'clothing:handle_cloth_search' %}" method='POST'> 
-                    {% csrf_token %}  
-                    <input type='text' placeholder='Search for a cloth'  name='cloth_name' id='id_cloth_name'>
-                    <input type='submit' value='search'>
-                    </form>
-            <h2>All Clothes</h2>
+            <form action="{% url 'clothing:handle_cloth_search' %}" method='POST'>
+                {% csrf_token %}
+                <input type='text' placeholder='Search for a cloth' name='cloth_name' id="id_cloth_name">
+                <input type='submit' value='search'>
+            </form>
+ 
+            <h2>Results for search</h2>
         <div class="cloth-list">
-            {% if cloth_list %}
-                {% for cloth in cloth_list %}
+            {% if search_result %}
+                {% for cloth in search_result %}
                     <div class="cloth">
                         <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
                         <h4>{{ cloth.name }}</h4>
@@ -28,7 +29,7 @@
                 {% endfor %}
             {% else %}
                 <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">
-                    Cloth store is empty
+                    No cloth name matched cloth
                 </p>
             {% endif %}
         </div>

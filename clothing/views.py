@@ -17,3 +17,11 @@ def cloth_list(request):
     cloth_list = Cloth.objects.all()
     context = {'cloth_list': cloth_list}
     return render(request, 'clothing/cloth_list.html', context)
+
+def handle_cloth_search(request):
+    """
+    handles all request to search for products
+    """
+    searched_name = request.POST['cloth_name']
+    search_result = Cloth.objects.filter(name__icontains=searched_name)
+    return render(request, 'clothing/search_result_list.html', {'search_result': search_result})
