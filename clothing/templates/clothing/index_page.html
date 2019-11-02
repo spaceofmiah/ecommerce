@@ -1,12 +1,54 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>lowCost</title>
+    <link rel="stylesheet" href="{% static 'clothing/styles.css' %}">
+    <title>Home - lowCost</title>
 </head>
 <body>
-    
+    <nav>
+        <div class="top_bar_nav">
+            <h1 class="brand_name">lowCost</h1>
+
+            <form action="{% url 'clothing:handle_cloth_search' %}" 
+                method="POST" class="cloth_search_form"> {% csrf_token %}
+                <input type="text" name="cloth_name" 
+                    id="id_cloth_name" placeholder="Enter name of cloth" required>
+                <input type="submit" value="Find">
+            </form>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>The lowest cost you can get quality clothes</h1>
+            <div>
+                <img src="{% static 'clothing/images/cool_img.jpeg' %}" alt="">
+            </div>
+        </section>
+    </main>
+
+
+
+    <script type="text/javascript">
+        let form_search_box = document.getElementById('id_cloth_name');
+        form_search_box.addEventListener('focus', expandFormSearchBox);
+        form_search_box.addEventListener('blur', reduceFormSearchBox);
+        
+        function expandFormSearchBox() {
+            if (window.innerWidth < 670){
+                form_search_box.style.width = '140px';
+            }
+        }
+
+        function reduceFormSearchBox() {
+            if (window.innerWidth < 670){
+                form_search_box.style.width = '50px';
+            }
+        }
+    </script>
 </body>
 </html>

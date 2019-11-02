@@ -1,22 +1,121 @@
+/** universal styles **/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+}
+
+input{
+    padding: 8px;
+    border: .5px solid #ccc;
+    outline: none;
+}
+
+
+input[type='text']{
+    font-size: 16px;
+}
+/** end of universal styles **/
+
+
+/** navbar styles **/
+nav .top_bar_nav{
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+nav .brand_name {
+    color: #ff06ac;
+    font-size: 24px;
+}
+
+
+nav input[type='submit']{
+    font-size: 18px;
+}
+
+
+nav .cloth_search_form input[type='text']{
+    width: 40px;
+    border-radius: 50px;
+    transition: all .5s ease-in;
+}
+
+
+@media screen and (min-width: 670px){
+    nav .cloth_search_form input[type='text']{
+        width: 320px;
+        border: 1px solid #ccc;
+        border-radius: 0px;
+    }
+}
+
+
+nav .cloth_search_form input[type='submit']{
+    background: #c42dff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/** end of navbar **/
+
+
+/** main styles **/
+
+main {
+    padding: 38px 18px;
+}
+
+
+main .hero {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+main .hero div {
+    margin-top: 18px;
+}
+
+main .hero div img {
+    width: 250px;
+    height: 250px;
+}
+
+/** end of main styles **/
+
+
 .wrapper h2 {
     text-align: center;
     font-size: 34px;
     color: #b00978;
 }
 
+
+/** cloth listing **/
 .cloth-list {
     display: flex;
     flex-wrap: wrap;
 }
+
 
 .cloth-list .cloth {
     border: 1.3px solid #ccc;
     padding: 8px;
     width: 230px;
     text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 18px;
-    line-height: 12px;
     margin: 8px 18px;
 }
 
@@ -29,3 +128,9 @@
     letter-spacing: 10px;
     color: rgb(175, 5, 118);
 }
+
+.cloth-list .cloth p {
+    line-height: 8px;
+}
+
+/** end of cloth listing **/
