@@ -22,12 +22,74 @@
         </div>
     </nav>
 
-    <main>
+    <main class="wrapper">
         <section class="hero">
             <h1>The lowest cost you can get quality clothes</h1>
             <div>
                 <img src="{% static 'clothing/images/cool_img.jpeg' %}" alt="">
             </div>
+        </section>
+
+
+        <section class="trending">
+            <h3 class="title">All Men's Choice</h3>
+            <div class="content">
+                <div class="img_wrap">
+                    <img src="{% static 'clothing/images/nikey.jpeg' %}" alt="">
+                </div>
+
+                <div class="wrap">
+                    <h3>Nike Boost</h3>
+                    <p>best choice</p>
+                    <p>$78</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="quick_list">
+            {% if cloth_list %}
+            <div class="cloth-list">
+                    {% for cloth in cloth_list %}
+                        <div class="cloth">
+                            <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
+                            <h4>{{ cloth.name }}</h4>
+                            <p>{{ cloth.material_type }}</p>
+                            <p>$ {{ cloth.price }}</p>
+                        </div>
+                    {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="view_all_wrap">
+                <a href="{% url 'clothing:cloth_list' %}" id="view_all">View All</a>
+            </div>
+        </section>
+
+
+        <section class="blog_latest">
+            <article>
+                <h4 class="title">How to have fab dress collection</h4>
+                <p>
+                    Donne de et le de volupté parce dont dit pleurs d'un, 
+                    genoux quel pour tete qu'un d'athlete. Fait de et cette 
+                    mensonge mettrait haut l'elégance, yeux la beauté un 
+                    aussi qu'elle. Le masque extase monstre mon mal 
+                </p>
+                <a href="">read more</a>
+            </article>
+
+            <article>
+                <h4 class="title">Killer dress patterns for the year</h4>
+                <p>
+                    Donne de et le de volupté parce dont dit pleurs d'un, 
+                    genoux quel pour tete qu'un d'athlete. Fait de et cette 
+                    mensonge mettrait haut l'elégance, yeux la beauté un 
+                    aussi qu'elle. Le masque extase monstre mon mal 
+                </p>
+
+                <a href="">read more</a>
+            </article>
         </section>
     </main>
 
@@ -37,10 +99,10 @@
         let form_search_box = document.getElementById('id_cloth_name');
         form_search_box.addEventListener('focus', expandFormSearchBox);
         form_search_box.addEventListener('blur', reduceFormSearchBox);
-        
+
         function expandFormSearchBox() {
             if (window.innerWidth < 670){
-                form_search_box.style.width = '140px';
+                form_search_box.style.width = '120px';
             }
         }
 

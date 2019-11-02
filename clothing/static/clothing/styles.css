@@ -2,11 +2,18 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 18px;
+}
+
+
+a {
+    text-decoration: none;
+    color: #000;
 }
 
 input{
@@ -23,11 +30,26 @@ input[type='text']{
 
 
 /** navbar styles **/
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+}
+
 nav .top_bar_nav{
     padding: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+@media screen and (min-width: 970px){
+    nav .top_bar_nav     {
+        width: 920px;
+        margin: 0 auto;
+    }
 }
 
 
@@ -51,7 +73,7 @@ nav .cloth_search_form input[type='text']{
 
 @media screen and (min-width: 670px){
     nav .cloth_search_form input[type='text']{
-        width: 320px;
+        width: 270px;
         border: 1px solid #ccc;
         border-radius: 0px;
     }
@@ -70,10 +92,17 @@ nav .cloth_search_form input[type='submit']{
 /** end of navbar **/
 
 
-/** main styles **/
+/** main hero styles **/
 
 main {
-    padding: 38px 18px;
+    padding: 80px 18px;
+}
+
+@media screen and (min-width: 970px){
+    main {
+        width: 920px;
+        margin: 0 auto;
+    }
 }
 
 
@@ -84,7 +113,6 @@ main .hero {
     justify-content: space-around;
 }
 
-
 main .hero div {
     margin-top: 18px;
 }
@@ -94,7 +122,125 @@ main .hero div img {
     height: 250px;
 }
 
-/** end of main styles **/
+@media screen and (min-width: 670px){
+    main .hero {
+        flex-direction: row;
+    }
+
+    main .hero h1 {
+        font-size: 38px;
+    }
+
+    main .hero div img {
+        width: 450px;
+        height: 450px;
+    }
+}
+/** end of main hero styles **/
+
+
+/** main trending styles **/
+main .trending {
+    margin-top: 80px;
+}
+
+main .trending .title {
+    text-align: center;
+    color: #c42dff;
+}
+
+main .trending .content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+main .trending .content .img_wrap img {
+    width: 180px;
+    height: 180px;
+}
+
+
+@media screen and (min-width: 670px){
+    main .trending .content .img_wrap img {
+        width: 420px;
+        height: 420px;
+    }
+}
+
+
+main .trending .content .wrap {
+    text-align: center;
+}
+
+@media screen and (min-width: 670px){
+    main .trending .content .wrap  h3 {
+        font-size: 34px;
+    }
+}
+/** end of main trending styles **/
+
+
+/** main quick_list styles **/
+
+main .quick_list .cloth-list {
+    padding: 70px 0;
+}
+
+main .quick_list .view_all_wrap {
+    text-align: center;
+}
+
+main .quick_list #view_all {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #c42dff;
+    background: transparent;
+    transition: .4s ease-in;
+}
+
+main .quick_list #view_all:hover {
+    background: #c42dff;
+}
+/** end of main quick_list styles **/
+
+
+/** main blog_latest styles **/
+
+main .blog_latest {
+    padding-top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+@media screen and (min-width: 670px){
+    main .blog_latest {
+        flex-direction: row;
+    }
+}
+
+main .blog_latest article {
+    margin: 24px 0;
+    width: 400px;
+}
+
+main .blog_latest article .title {
+    margin-bottom: 10px;
+}
+
+main .blog_latest article p {
+    margin-bottom: 10px;
+}
+
+main .blog_latest article a {
+    color: #b00978;
+    font-weight: 550;
+}
+
+/** end of main blog_latest styles **/
 
 
 .wrapper h2 {
@@ -106,15 +252,15 @@ main .hero div img {
 
 /** cloth listing **/
 .cloth-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-gap: 5px;
 }
 
 
 .cloth-list .cloth {
     border: 1.3px solid #ccc;
     padding: 8px;
-    width: 230px;
     text-align: center;
     margin: 8px 18px;
 }
@@ -127,10 +273,6 @@ main .hero div img {
     text-transform: uppercase;
     letter-spacing: 10px;
     color: rgb(175, 5, 118);
-}
-
-.cloth-list .cloth p {
-    line-height: 8px;
 }
 
 /** end of cloth listing **/
