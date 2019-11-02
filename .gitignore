@@ -9,6 +9,9 @@ __pycache__/
 # Pip requirements
 requirements.txt
 
+# unwanted folders
+media_root/
+
 # C extensions
 *.so
 
