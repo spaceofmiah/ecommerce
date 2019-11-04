@@ -5,7 +5,9 @@ def index_page(request):
     """
     handles all request for index page 
     """
-    return render(request, 'clothing/index_page.html')
+    cloth_list = Cloth.objects.all().order_by('name')[:3]
+    return render(request, 'clothing/index_page.html', 
+                                    {'cloth_list': cloth_list})
 
 
 def cloth_list(request):

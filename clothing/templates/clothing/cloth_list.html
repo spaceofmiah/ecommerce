@@ -1,21 +1,8 @@
-<!DOCTYPE html>
+{% extends 'clothing/base.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Available clothes</title>
-    <link rel="stylesheet" href="{% static 'clothing/styles.css' %}">
-</head>
-<body>
-    <div class="wrapper">
-            <form action="{% url 'clothing:handle_cloth_search' %}" method='POST'> 
-                    {% csrf_token %}  
-                    <input type='text' placeholder='Search for a cloth'  name='cloth_name' id='id_cloth_name'>
-                    <input type='submit' value='search'>
-                    </form>
-            <h2>All Clothes</h2>
+{% block title %} lowCost - {% endblock title %}
+{% block content %}
+        <h2>All Clothes</h2>
         <div class="cloth-list">
             {% if cloth_list %}
                 {% for cloth in cloth_list %}
@@ -32,6 +19,4 @@
                 </p>
             {% endif %}
         </div>
-    </div>
-</body>
-</html>
+{% endblock content %}

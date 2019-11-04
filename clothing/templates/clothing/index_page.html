@@ -1,12 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>lowCost</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'clothing/base.html' %}
+{% load static %}
+{% block title %} lowCost - {% endblock title %}
+{% block content %}
+<section class="hero">
+    <h1>The lowest cost you can get quality clothes</h1>
+    <div>
+        <img src="{% static 'clothing/images/cool_img.jpeg' %}" alt="">
+    </div>
+</section>
+
+
+<section class="trending">
+    <h3 class="title">All Men's Choice</h3>
+    <div class="content">
+        <div class="img_wrap">
+            <img src="{% static 'clothing/images/nikey.jpeg' %}" alt="">
+        </div>
+
+        <div class="wrap">
+            <h3>Nike Boost</h3>
+            <p>best choice</p>
+            <p>$78</p>
+        </div>
+    </div>
+</section>
+
+
+<section class="quick_list">
+    {% if cloth_list %}
+    <div class="cloth-list">
+        {% for cloth in cloth_list %}
+        <div class="cloth">
+            <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
+            <h4>{{ cloth.name }}</h4>
+            <p>{{ cloth.material_type }}</p>
+            <p>$ {{ cloth.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="view_all_wrap">
+        <a href="{% url 'clothing:cloth_list' %}" id="view_all">View All</a>
+    </div>
+</section>
+{% endblock content %}
+
+{% block script %}
+
+<script type="text/javascript">
+    let form_search_box = document.getElementById('id_cloth_name');
+    form_search_box.addEventListener('focus', expandFormSearchBox);
+    form_search_box.addEventListener('blur', reduceFormSearchBox);
+
+    function expandFormSearchBox() {
+        if (window.innerWidth < 670) {
+            form_search_box.style.width = '120px';
+        }
+    }
+
+    function reduceFormSearchBox() {
+        if (window.innerWidth < 670) {
+            form_search_box.style.width = '50px';
+        }
+    }
+</script>
+
+{% endblock script %}
