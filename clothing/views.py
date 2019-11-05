@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, reverse
+from django.http import HttpResponseRedirect
 from clothing.models import Cloth
+from clothing.forms import ClothCreationForm
 
 def index_page(request):
     """
@@ -8,7 +10,6 @@ def index_page(request):
     cloth_list = Cloth.objects.all().order_by('name')[:3]
     return render(request, 'clothing/index_page.html', 
                                     {'cloth_list': cloth_list})
-
 
 def cloth_list(request):
     """
@@ -22,8 +23,28 @@ def cloth_list(request):
 
 def handle_cloth_search(request):
     """
-    handles all request to search for products
+    handles all request to search for cloth products
     """
     searched_name = request.POST['cloth_name']
     search_result = Cloth.objects.filter(name__icontains=searched_name)
-    return render(request, 'clothing/search_result_list.html', {'search_result': search_result})
+    return render(request, 'clothing/search_result_list.html', 
+                                        {'search_result': search_result})
+
+def handle_cloth_creation(request):
+    """
+    handles all request for creating a cloth, for a GET
+    request, the cloth creation form is rendered, for a POST
+    request, the submitted data are used to create a cloth object
+    """
+    if request.method == "POST":
+        # for POST request only
+        form = ClothCreationForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('clothing:index'))
+
+    # for GET request only
+    form = ClothCreationForm()
+    context = {'cloth_form': form}
+    return render(request, 'clothing/create_cloth.html', context)
