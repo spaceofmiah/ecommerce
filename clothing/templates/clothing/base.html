@@ -13,7 +13,9 @@
 <body>
     <nav>
         <div class="top_bar_nav">
-            <h1 class="brand_name">lowCost</h1>
+            <h1>
+                <a class="brand_name" href="{% url 'clothing:index' %}">lowCost</a>
+            </h1>
 
             <form action="{% url 'clothing:handle_cloth_search' %}" method="POST" class="cloth_search_form">
                 {% csrf_token %}
@@ -54,6 +56,24 @@
                 </article>
             </section>
     </main>
+
+    <script type="text/javascript">
+        let form_search_box = document.getElementById('id_cloth_name');
+        form_search_box.addEventListener('focus', expandFormSearchBox);
+        form_search_box.addEventListener('blur', reduceFormSearchBox);
+    
+        function expandFormSearchBox() {
+            if (window.innerWidth < 670) {
+                form_search_box.style.width = '120px';
+            }
+        }
+    
+        function reduceFormSearchBox() {
+            if (window.innerWidth < 670) {
+                form_search_box.style.width = '50px';
+            }
+        }
+    </script>
 
     {% block script %}
 

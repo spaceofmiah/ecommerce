@@ -45,25 +45,3 @@
     </div>
 </section>
 {% endblock content %}
-
-{% block script %}
-
-<script type="text/javascript">
-    let form_search_box = document.getElementById('id_cloth_name');
-    form_search_box.addEventListener('focus', expandFormSearchBox);
-    form_search_box.addEventListener('blur', reduceFormSearchBox);
-
-    function expandFormSearchBox() {
-        if (window.innerWidth < 670) {
-            form_search_box.style.width = '120px';
-        }
-    }
-
-    function reduceFormSearchBox() {
-        if (window.innerWidth < 670) {
-            form_search_box.style.width = '50px';
-        }
-    }
-</script>
-
-{% endblock script %}
