@@ -224,7 +224,7 @@ main .blog_latest {
 
 main .blog_latest article {
     margin: 24px 0;
-    width: 400px;
+    width: 320px;
 }
 
 main .blog_latest article .title {
@@ -275,4 +275,42 @@ main .blog_latest article a {
     color: rgb(175, 5, 118);
 }
 
+
+.cloth-list .add_to_cart_wrap {
+    margin: 20px 0;
+}
+
+.cloth-list .add_to_cart_wrap a {
+    font-size: 18px;
+    border: 1px solid #ff06ac;
+    padding: 8px;
+    color: #ffffff;
+    background-color: #ff06ac;
+    cursor: pointer;
+
+    transition: .5s ease;
+}
+
+.cloth-list .add_to_cart_wrap a:hover {
+    border-radius: 8px;
+}
 /** end of cloth listing **/
+
+
+/** create cloth form styles **/
+#create_cloth_form label {
+    display: block;
+    margin-top: 16px;
+}
+
+#create_cloth_form input {
+    width: 100%;
+}
+
+#create_cloth_form input[type='submit']{
+    margin-top: 13px;
+    width: fit-content;
+    padding: 10px 18px;
+    background: #c42dff;
+    color: #fff;
+}

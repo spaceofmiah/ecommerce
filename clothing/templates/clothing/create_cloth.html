@@ -3,7 +3,7 @@
 {% block title %} Create cloth - {% endblock title %}
 {% block content %}
 
-    <form enctype="multipart/form-data" action="{% url 'clothing:create_cloth' %}" method="POST">
+    <form enctype="multipart/form-data" action="{% url 'clothing:create_cloth' %}" method="POST" id="create_cloth_form">
         {% csrf_token %}
         {{cloth_form.as_p}}
         <input type="submit" value="Create">
