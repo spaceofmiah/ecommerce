@@ -1,0 +1,20 @@
+{% extends 'clothing/base.html' %}
+{% load static %}
+{% block title %} {{cloth.name}} - {% endblock title %}
+{% block content %}
+
+<h1>{{cloth.name}}</h1>
+
+<div class="cloth">
+    <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
+    <h4>{{ cloth.name }}</h4>
+    <p>{{ cloth.material_type }}</p>
+    <p>£ {{ cloth.price }}</p>
+</div>
+<p>
+    Donne de et le de volupté parce dont dit pleurs d'un, 
+    genoux quel pour tete qu'un d'athlete. Fait de et cette 
+    mensonge mettrait haut l'elégance, yeux la beauté un 
+    aussi qu'elle. Le masque extase monstre mon mal 
+</p>
+{% endblock content %}

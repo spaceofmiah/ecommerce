@@ -48,3 +48,13 @@ def handle_cloth_creation(request):
     form = ClothCreationForm()
     context = {'cloth_form': form}
     return render(request, 'clothing/create_cloth.html', context) 
+
+def cloth_detail(request, cloth_id):
+    """
+    handles all request to view cloth detail
+    and returns detail of clothes as a response passed
+    to the cloth_detail HTML file
+    """
+    cloth_detail = Cloth.objects.get(pk=cloth_id)
+    context = {'cloth': cloth_detail}
+    return render(request, 'clothing/cloth_detail.html', context)
