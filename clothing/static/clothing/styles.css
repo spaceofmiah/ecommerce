@@ -276,3 +276,20 @@ main .blog_latest article a {
 }
 
 /** end of cloth listing **/
+
+#cloth_creation_form label {
+    display: block;
+    margin-top: 16px;
+}
+
+#cloth_creation_form input {
+    width: 100%;
+}
+
+#cloth_creation_form input[type='submit']{
+    margin-top: 13px;
+    width: fit-content;
+    padding: 10px 18px;
+    background: #c42dff;
+    color: #fff;
+}
