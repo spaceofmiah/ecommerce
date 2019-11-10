@@ -23,6 +23,14 @@
                 <input type="submit" value="Find">
             </form>
         </div>
+
+        <div class="bottom_bar_nav">
+            <a href="{% url 'clothing:cloth_list' %}">all clothes</a>
+            <a href="">trending</a>
+            <a href="">Gucci</a>
+            <a href="">Versace</a>
+            <a href="">More</a>
+        </div>
     </nav>
 
 
@@ -59,8 +67,22 @@
 
     <script type="text/javascript">
         let form_search_box = document.getElementById('id_cloth_name');
+        let bottom_bar_nav = document.querySelector('.bottom_bar_nav');
         form_search_box.addEventListener('focus', expandFormSearchBox);
         form_search_box.addEventListener('blur', reduceFormSearchBox);
+
+
+        window.addEventListener('scroll', (e) => {
+            if (window.scrollY >= 126){
+                bottom_bar_nav.style.display = "none";
+            }
+
+            if (window.scrollY < 126){
+                bottom_bar_nav.style.display = "flex";
+            }
+        })
+
+
     
         function expandFormSearchBox() {
             if (window.innerWidth < 670) {

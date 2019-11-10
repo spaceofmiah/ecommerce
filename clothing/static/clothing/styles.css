@@ -45,7 +45,21 @@ nav .top_bar_nav{
     justify-content: space-between;
 }
 
+nav .bottom_bar_nav {
+    background: #000;
+    padding: 8px 10px;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav .bottom_bar_nav a {
+    color: #ff94db;
+    font-size: 16px;
+}
+
 @media screen and (min-width: 970px){
+    nav .bottom_bar_nav,
     nav .top_bar_nav     {
         width: 920px;
         margin: 0 auto;
@@ -95,7 +109,7 @@ nav .cloth_search_form input[type='submit']{
 /** main hero styles **/
 
 main {
-    padding: 80px 18px;
+    padding: 120px 18px;
 }
 
 @media screen and (min-width: 970px){
