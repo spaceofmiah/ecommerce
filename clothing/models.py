@@ -12,6 +12,7 @@ class Cloth(models.Model):
     image = models.ImageField(upload_to='clothes/images/')
     colour = models.CharField(max_length=30, default="black")
     amount = models.IntegerField()
+    description = models.TextField()
 
     def __str__(self):
         """

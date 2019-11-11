@@ -6,3 +6,7 @@ class ClothCreationForm(forms.ModelForm):
         model = Cloth
         fields = ['name', 'size', 'price', 
                     'material_type', 'image', 'colour', 'amount']
+    
+    class Meta:
+        model = Cloth
+        fields = ['name', 'size', 'price', 'material_type', 'image', 'colour', 'amount', 'description']
