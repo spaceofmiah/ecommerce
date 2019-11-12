@@ -2,7 +2,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
 from clothing.models import Cloth
-from clothing.forms import ClothCreationForm
+from clothing.forms import ClothCreationForm, ClothUpdateForm
 
 def index_page(request):
     """
@@ -37,6 +37,16 @@ def handle_cloth_creation(request):
     request, the cloth creation form is rendered, for a POST
     request, the submitted data are used to create a cloth object
     """
+    if request.user.is_authenticated == False:
+        # if the user is not authenticated at all (meaning the user is not logged in)
+        # take the user back to the index page
+        return HttpResponseRedirect(reverse("clothing:index"))
+    else:
+        # but if the user is logged in
+        if request.user.is_staff == False:
+            # but the user is not an admin
+            # also take the user to the index page
+            return HttpResponseRedirect(reverse('clothin:index'))
     if request.method == "POST":
         # for POST request only
         form = ClothCreationForm(request.POST, request.FILES)
@@ -60,3 +70,11 @@ def cloth_detail(request, cloth_id):
     cloth_detail = Cloth.objects.get(pk=cloth_id)
     context = {'cloth': cloth_detail}
     return render(request, 'clothing/cloth_detail.html', context)
+
+def update_cloth(request, id): 
+    instance = get_object_or_404(Cloth, id=id)
+    form = ClothUpdateForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('clothing:index'))
+    return render(request, 'clothing/cloth_update.html', {'form': form})

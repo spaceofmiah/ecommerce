@@ -29,7 +29,9 @@
             <a href="">trending</a>
             <a href="">Gucci</a>
             <a href="">Versace</a>
-            <a href="">More</a>
+            {% if request.user.is_authenticated and request.user.is_admin %}
+            <a href="{% url 'clothing:create_cloth' %}">add cloth</a>
+            {% endif %}
         </div>
     </nav>
 

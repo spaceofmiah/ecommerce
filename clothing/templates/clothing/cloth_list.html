@@ -6,12 +6,12 @@
         <div class="cloth-list">
             {% if cloth_list %}
                 {% for cloth in cloth_list %}
-                    <div class="cloth">
+                    <a href="{% url 'clothing:cloth_details' cloth.id %}" class="cloth">
                         <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
                         <h4>{{ cloth.name }}</h4>
                         <p>{{ cloth.material_type }}</p>
                         <p>£ {{ cloth.price }}</p>
-                    </div>
+                    </a>
                 {% endfor %}
             {% else %}
                 <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">

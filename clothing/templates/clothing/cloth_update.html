@@ -1,0 +1,15 @@
+{% extends 'clothing/base.html' %}
+{% load static %}
+{% block title %} Update cloth - {% endblock title %}
+{% block content %}
+
+
+
+<h2>Update cloth</h2>
+    <form id="cloth_update_form" enctype="multipart/form-data" action="{% url 'clothing:update_cloth' form.instance.id %}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Update">
+    </form>
+
+{% endblock content %}

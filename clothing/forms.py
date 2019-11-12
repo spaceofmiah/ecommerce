@@ -5,8 +5,10 @@ class ClothCreationForm(forms.ModelForm):
     class Meta:
         model = Cloth
         fields = ['name', 'size', 'price', 
-                    'material_type', 'image', 'colour', 'amount']
-    
+                    'material_type', 'image', 'colour', 'amount', 'description']
+
+class ClothUpdateForm(forms.ModelForm):
     class Meta:
         model = Cloth
-        fields = ['name', 'size', 'price', 'material_type', 'image', 'colour', 'amount', 'description']
+        fields = ['name', 'size', 'price', 
+                    'material_type', 'image', 'colour', 'amount', 'description']
