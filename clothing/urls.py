@@ -41,4 +41,9 @@ urlpatterns = [
             'cloth-detail/<int:cloth_id>', 
             views.cloth_detail, 
             name='cloth_detail'),
+
+    path(
+            'delete-cloth/<int:cloth_id>', 
+            views.delete_handler, 
+            name='delete_cloth'),
 ]

@@ -78,3 +78,8 @@ def update_cloth(request, id):
         form.save()
         return HttpResponseRedirect(reverse('clothing:index'))
     return render(request, 'clothing/cloth_update.html', {'form': form})
+
+
+def delete_handler(request, cloth_id):
+    Cloth.objects.get(pk=cloth_id).delete()
+    return HttpResponseRedirect(reverse('clothing:cloth_list'))
