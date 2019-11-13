@@ -322,12 +322,6 @@ main .blog_latest article a {
     width: 100%;
 }
 
-#create_cloth_form input[type='submit']{
-
-#cloth_creation_form input {
-    width: 100%;
-}
-
 #cloth_creation_form input[type='submit']{
 
     margin-top: 13px;

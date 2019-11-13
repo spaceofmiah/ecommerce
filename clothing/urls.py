@@ -36,4 +36,9 @@ urlpatterns = [
             'update-cloth/<int:id>', 
             views.update_cloth, 
             name='update_cloth'),
+
+    path(
+            'cloth-detail/<int:cloth_id>', 
+            views.cloth_detail, 
+            name='cloth_detail'),
 ]
