@@ -6,13 +6,16 @@
         <div class="cloth-list">
             {% if cloth_list %}
                 {% for cloth in cloth_list %}
-                    <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="cloth">
-                        <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
-                        <h4>{{ cloth.name }}</h4>
-                        
-                        <p>£ {{ cloth.price }}</p>
-                        <a href='{% url "clothing:delete_cloth" cloth.id %}'> delete </a>
-                    </a>
+                <div class="cloth">
+                    <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
+                    <h4>{{ cloth.name }}</h4>
+                    <p>£ {{ cloth.price }}</p>
+                    <div class="cloth-action-btns">
+                        <a href='{% url "clothing:delete_cloth" cloth.id %}' class="delete-btn"> delete </a>
+                        <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="details-btn">view details</a>
+                    </div>
+                </div>
+
                 {% endfor %}
             {% else %}
                 <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">

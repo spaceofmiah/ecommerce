@@ -266,47 +266,40 @@ main .blog_latest article a {
 
 /** cloth listing **/
 .cloth-list {
+    margin-top: 30px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-gap: 14px;
 }
 
-
 .cloth-list .cloth {
-    border: 1.3px solid #ccc;
     padding: 8px;
     text-align: center;
-    margin: 8px 18px;
+    border: 1px solid #ccc;
 }
 
 .cloth-list .cloth img {
     width: 100%;
 }
 
-.cloth-list .cloth h4 {
-    text-transform: uppercase;
-    letter-spacing: 10px;
-    color: rgb(175, 5, 118);
+
+.cloth-list .cloth-action-btns a {
+    display: block;
 }
 
 
-.cloth-list .add_to_cart_wrap {
-    margin: 20px 0;
+.cloth-list .cloth-action-btns {
+    justify-content: space-around;
+    text-align: center;
 }
 
-.cloth-list .add_to_cart_wrap a {
-    font-size: 18px;
-    border: 1px solid #ff06ac;
-    padding: 8px;
-    color: #ffffff;
-    background-color: #ff06ac;
-    cursor: pointer;
-
-    transition: .5s ease;
+.cloth-list .delete-btn {
+    color: red;
+    padding: 8px 0;
 }
 
-.cloth-list .add_to_cart_wrap a:hover {
-    border-radius: 8px;
+.cloth-list .details-btn {
+    color: #2c8ad5;
 }
 /** end of cloth listing **/
 
