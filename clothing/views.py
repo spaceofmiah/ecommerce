@@ -81,5 +81,8 @@ def update_cloth(request, id):
 
 
 def delete_handler(request, cloth_id):
+    if request.user.is_staff == False:
+        return HttpResponseRedirect(
+                reverse('clothing:cloth_detail', kwargs={'cloth_id': cloth_id}))
     Cloth.objects.get(pk=cloth_id).delete()
     return HttpResponseRedirect(reverse('clothing:cloth_list'))
