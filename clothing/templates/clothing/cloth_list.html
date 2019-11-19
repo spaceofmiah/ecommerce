@@ -11,7 +11,9 @@
                     <h4>{{ cloth.name }}</h4>
                     <p>£ {{ cloth.price }}</p>
                     <div class="cloth-action-btns">
+                        {% if request.user.is_staff != False %}
                         <a href='{% url "clothing:delete_cloth" cloth.id %}' class="delete-btn"> delete </a>
+                        {% endif %}
                         <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="details-btn">view details</a>
                     </div>
                 </div>
