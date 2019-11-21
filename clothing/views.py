@@ -2,7 +2,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
 from clothing.models import Cloth
-from clothing.forms import ClothCreationForm, ClothUpdateForm
+from clothing.forms import ClothForm, ClothForm
 
 def index_page(request):
     """
@@ -49,14 +49,14 @@ def handle_cloth_creation(request):
             return HttpResponseRedirect(reverse('clothin:index'))
     if request.method == "POST":
         # for POST request only
-        form = ClothCreationForm(request.POST, request.FILES)
+        form = ClothForm(request.POST, request.FILES)
         
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('clothing:index'))
 
     # for GET request only
-    form = ClothCreationForm()
+    form = ClothForm()
     context = {'cloth_form': form}
     return render(request, 'clothing/create_cloth.html', context)
 
@@ -73,7 +73,7 @@ def cloth_detail(request, cloth_id):
 
 def update_cloth(request, id): 
     instance = get_object_or_404(Cloth, id=id)
-    form = ClothUpdateForm(request.POST or None, instance=instance)
+    form = ClothForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('clothing:index'))

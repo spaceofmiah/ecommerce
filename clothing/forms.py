@@ -1,14 +1,9 @@
 from django import forms
 from clothing.models import Cloth
 
-class ClothCreationForm(forms.ModelForm):
+class ClothForm(forms.ModelForm):
     class Meta:
         model = Cloth
         fields = ['name', 'size', 'price', 
-                    'material_type', 'image', 'colour', 'amount', 'description']
+                    'material_type', 'image', 'available_in_stock', 'description']
 
-class ClothUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Cloth
-        fields = ['name', 'size', 'price', 
-                    'material_type', 'image', 'colour', 'amount', 'description']
