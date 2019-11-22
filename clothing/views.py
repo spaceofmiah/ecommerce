@@ -76,7 +76,7 @@ def update_cloth(request, id):
     form = ClothForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('clothing:index'))
+        return HttpResponseRedirect(instance.get_absolute_url())
     return render(request, 'clothing/cloth_update.html', {'form': form})
 
 
