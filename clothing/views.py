@@ -1,8 +1,8 @@
 
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
+from clothing.forms import ClothForm
 from clothing.models import Cloth
-from clothing.forms import ClothCreationForm, ClothUpdateForm
 
 def index_page(request):
     """
@@ -49,14 +49,14 @@ def handle_cloth_creation(request):
             return HttpResponseRedirect(reverse('clothin:index'))
     if request.method == "POST":
         # for POST request only
-        form = ClothCreationForm(request.POST, request.FILES)
+        form = ClothForm(request.POST, request.FILES)
         
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('clothing:index'))
+            cloth = form.save()
+            return HttpResponseRedirect(cloth.get_absolute_url())
 
     # for GET request only
-    form = ClothCreationForm()
+    form = ClothForm()
     context = {'cloth_form': form}
     return render(request, 'clothing/create_cloth.html', context)
 
@@ -67,22 +67,21 @@ def cloth_detail(request, cloth_id):
     and returns detail of clothes as a response passed
     to the cloth_detail HTML file
     """
-    cloth_detail = Cloth.objects.get(pk=cloth_id)
-    context = {'cloth': cloth_detail}
+    cloth = Cloth.objects.get(pk=cloth_id)
+    context = {'cloth': cloth}
     return render(request, 'clothing/cloth_detail.html', context)
 
 def update_cloth(request, id): 
     instance = get_object_or_404(Cloth, id=id)
-    form = ClothUpdateForm(request.POST or None, instance=instance)
+    form = ClothForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('clothing:index'))
+        return HttpResponseRedirect(instance.get_absolute_url())
     return render(request, 'clothing/cloth_update.html', {'form': form})
 
 
 def delete_handler(request, cloth_id):
     if request.user.is_staff == False:
-        return HttpResponseRedirect(
-                reverse('clothing:cloth_detail', kwargs={'cloth_id': cloth_id}))
+        return HttpResponseRedirect(reverse('clothing:cloth_list'))
     Cloth.objects.get(pk=cloth_id).delete()
     return HttpResponseRedirect(reverse('clothing:cloth_list'))

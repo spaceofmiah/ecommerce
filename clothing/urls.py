@@ -30,7 +30,7 @@ urlpatterns = [
             # 'cart/<int:cloth_id>/', 
             # views.handle_add_to_cart, 
             # name='add_to_cart'
-        # ),8
+        # ),
 
     path(
             'update-cloth/<int:id>', 
