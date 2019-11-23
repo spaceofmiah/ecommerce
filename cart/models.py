@@ -58,3 +58,21 @@ class CartItem(models.Model):
         :: cart_item_price * quantity_added_to_cart
         """
         return self.product.price * self.quantity
+
+
+
+class Cart(models.Model):
+    ticket = models.CharField(max_length=100, editable=False)
+    items = models.ManyToManyField("CartItem", related_name='+')
+
+    class Meta:
+        verbose_name_plural = 'Cart'
+        verbose_name = 'Cart'
+
+    ### ** Helper Methods ** ##
+
+    def __str__(self):
+        """
+        Returns string representation of object
+        """
+        return self.ticket
