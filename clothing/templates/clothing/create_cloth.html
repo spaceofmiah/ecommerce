@@ -1,5 +1,6 @@
 {% extends 'clothing/base.html' %}
 {% load static %}
+{% load bootstrap4 %}
 {% block title %} Create cloth - {% endblock title %}
 {% block content %}
 
@@ -8,8 +9,8 @@
 <h2>Create cloth</h2>
     <form id="cloth_creation_form" enctype="multipart/form-data" action="{% url 'clothing:create_cloth' %}" method="POST">
         {% csrf_token %}
-        {{cloth_form.as_p}}
-        <input type="submit" value="Create">
+        {% bootstrap_form cloth_form fied_class='form-group' layout="horizontal"  %}
+        {% buttons submit="Create" %}{% endbuttons %}
     </form>
 
 {% endblock content %}

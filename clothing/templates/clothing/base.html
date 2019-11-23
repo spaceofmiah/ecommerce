@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 {% load static %}
+{% load bootstrap4 %}
 <html lang="en">
 
 <head>
+    {% bootstrap_css %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'clothing/styles.css' %}">
     <title>{% block title %} {% endblock title %} lowCost</title>
+    
 </head>
 
 <body>
@@ -16,7 +19,7 @@
             <h1>
                 <a class="brand_name" href="{% url 'clothing:index' %}">lowCost</a>
             </h1>
-
+            
             <form action="{% url 'clothing:handle_cloth_search' %}" method="POST" class="cloth_search_form">
                 {% csrf_token %}
                 <input type="text" name="cloth_name" id="id_cloth_name" placeholder="Enter name of cloth" required>
@@ -34,19 +37,19 @@
             {% endif %}
         </div>
     </nav>
-
-
+    
+    
     <main class="wrapper">
         {% block content %}
-
+        
         {% endblock content %}
-
+        
         <section class="blog_latest">
-                <article>
-                    <h4 class="title">How to have fab dress collection</h4>
-                    <p>
-                        Donne de et le de volupté parce dont dit pleurs d'un, 
-                        genoux quel pour tete qu'un d'athlete. Fait de et cette 
+            <article>
+                <h4 class="title">How to have fab dress collection</h4>
+                <p>
+                    Donne de et le de volupté parce dont dit pleurs d'un, 
+                    genoux quel pour tete qu'un d'athlete. Fait de et cette 
                         mensonge mettrait haut l'elégance, yeux la beauté un 
                         aussi qu'elle. Le masque extase monstre mon mal 
                     </p>
@@ -61,26 +64,30 @@
                         mensonge mettrait haut l'elégance, yeux la beauté un 
                         aussi qu'elle. Le masque extase monstre mon mal 
                     </p>
-    
+                    
                     <a href="">read more</a>
                 </article>
             </section>
-    </main>
-
-    <script type="text/javascript">
+        </main>
+        
+        <script type="text/javascript">
         let form_search_box = document.getElementById('id_cloth_name');
         let bottom_bar_nav = document.querySelector('.bottom_bar_nav');
+        let nav = document.querySelector('nav');
         form_search_box.addEventListener('focus', expandFormSearchBox);
         form_search_box.addEventListener('blur', reduceFormSearchBox);
 
 
+
         window.addEventListener('scroll', (e) => {
-            if (window.scrollY >= 126){
+            if (window.scrollY >= 70){
                 bottom_bar_nav.style.display = "none";
+                nav.style.backgroundColor = "#000";
             }
 
-            if (window.scrollY < 126){
+            if (window.scrollY < 70){
                 bottom_bar_nav.style.display = "flex";
+                nav.style.backgroundColor = "#fff";
             }
         })
 
@@ -102,5 +109,6 @@
     {% block script %}
 
     {% endblock script %}
+    <!-- {% bootstrap_javascript jquery='full' %} -->
 </body>
 </html>

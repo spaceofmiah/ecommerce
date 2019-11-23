@@ -36,6 +36,7 @@ nav {
     left: 0;
     width: 100%;
     background-color: white;
+    z-index: 1;
 }
 
 nav .top_bar_nav{
@@ -109,7 +110,7 @@ nav .cloth_search_form input[type='submit']{
 /** main hero styles **/
 
 main {
-    padding: 120px 18px;
+    padding: 180px 18px;
 }
 
 @media screen and (min-width: 970px){
