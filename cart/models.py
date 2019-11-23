@@ -5,19 +5,11 @@ from clothing.models import Cloth
 
 class CartItem(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
-    # a ForeignKey is unique by default, making it the other
-    # way round allows it to hold more than one object of 
-    # same kind. An online cart cannot vitually hold two of 
-    # same object unlike our basket when we go to grocery 
-    # store, and that is why if a product of same kind that
-    # already exists in our cart is to be readded, we'll just
-    # increment the quantity property of the existing product
-    # hence our quantity field below
+
     product = models.ForeignKey(
         Cloth,
         related_name="+",
-        on_delete = models.CASCADE,
-        unique=False        # this here does the trick
+        on_delete = models.CASCADE
     )
 
     quantity = models.IntegerField(default=1)
@@ -26,8 +18,6 @@ class CartItem(models.Model):
     class Meta:
         verbose_name_plural = 'Cart Item'
         verbose_name = 'Cart Item'
-
-
 
     ### Helper Methods ###
 
@@ -43,14 +33,13 @@ class CartItem(models.Model):
         """
         return self.product.get_absolute_url()
 
-    def augment_quantity(self):
+    def augment_quantity(self, quantity):
         """
         Increase the quantity of an existing cart item by 1
         if the item is to be added again
         """
-        self.quantity += 1
+        self.quantity = self.quantity + int(quantity)
         self.save()
-
 
     def total_price(self):
         """
@@ -58,6 +47,8 @@ class CartItem(models.Model):
         :: cart_item_price * quantity_added_to_cart
         """
         return self.product.price * self.quantity
+
+
 
 
 
@@ -76,3 +67,14 @@ class Cart(models.Model):
         Returns string representation of object
         """
         return self.ticket
+    
+
+    # An online cart cannot have two distinct representation of 
+    # a cart item within a cart unlike our basket when we go to  
+    # grocery stores that we can have two different oranges in 
+    # same shopping basket.
+    # So whenever a cart item that already exists in our cart
+    # is to be readded, we'll just increment quantity property 
+    # of the existing cart item
+    
+        
