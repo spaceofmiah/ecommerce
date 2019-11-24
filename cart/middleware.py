@@ -31,6 +31,9 @@ class CartMiddleware:
             request.session['cart'] = cart.id
             request.session['cart_present'] = True
 
+            # the above set cart properties in session will
+            # be deleted when a checkout process is done
+
         response = self.get_response(request)
 
         # Code to be executed for each request/response after

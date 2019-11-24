@@ -26,11 +26,6 @@ urlpatterns = [
             views.handle_cloth_creation, 
             name='create_cloth'
         ),    
-    # path(
-            # 'cart/<int:cloth_id>/', 
-            # views.handle_add_to_cart, 
-            # name='add_to_cart'
-        # ),
 
     path(
             'update-cloth/<int:id>', 
