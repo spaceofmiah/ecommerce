@@ -1,13 +1,41 @@
-from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.db import models
 
-from clothing.models import Cloth
+
+### retrieve the configured underlying product from settings 
+### or use the default product instead
+UNDERLYING_PRODUCT_MODEL = getattr(
+                                    settings, 
+                                    'UNDERLYING_PRODUCT_MODEL', 
+                                    "DefaultProduct")
+
+
+
+class DefaultProduct (models.Model):
+    '''
+    A minimal product model
+    '''
+    name = models.CharField(max_length=100, blank=False)
+    brand = models.CharField(max_length=100, null=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    available_in_stock = models.IntegerField(default=1)
+    review = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name.title()
+        
+
 
 class CartItem(models.Model):
+    '''
+    A model that represents item that can be
+    added to cart
+    '''
     date_added = models.DateTimeField(auto_now_add=True)
 
     product = models.ForeignKey(
-        Cloth,
+        UNDERLYING_PRODUCT_MODEL,
         related_name="+",
         on_delete = models.CASCADE
     )
@@ -40,12 +68,12 @@ class CartItem(models.Model):
         """
         return self.product.get_absolute_url()
 
-    def augment_quantity(self, quantity):
+    def augment_quantity(self):
         """
         Increase the quantity of an existing cart item by 1
         if the item is to be added again
         """
-        self.quantity = self.quantity + int(quantity)
+        self.quantity = self.quantity + 1
         self.save()
 
     def total_price(self):
@@ -60,8 +88,28 @@ class CartItem(models.Model):
 
 
 class Cart(models.Model):
-    ticket = models.CharField(max_length=100, editable=False)
-    items = models.ManyToManyField("CartItem", related_name='+')
+    '''
+    Cart 
+    '''
+    date_created = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    ticket = models.CharField(
+        max_length=100, 
+        editable=False
+    )
+
+    # user = models.ForeignKey(
+    #     User, 
+    #     on_delete=models.CASCADE, 
+    #     related_name='carts'
+    # )
+
+    items = models.ManyToManyField(
+        CartItem, 
+        related_name='+'
+    )
 
     class Meta:
         verbose_name_plural = 'Cart'
