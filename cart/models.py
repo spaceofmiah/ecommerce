@@ -27,6 +27,13 @@ class CartItem(models.Model):
         """
         return self.product.name
 
+    def get_underlying_id(self):
+        """
+        returns id of the underlying product that forms
+        a cart item
+        """
+        return self.product.id
+
     def get_absolute_url(self):
         """
         returns the actual url of the cart item
