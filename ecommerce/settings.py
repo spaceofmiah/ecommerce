@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'clothing',
     'cart',
 
-    #third party library
+    # third party library
     'bootstrap4',
 ]
 
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'cart.middleware.CartMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerce.urls'
