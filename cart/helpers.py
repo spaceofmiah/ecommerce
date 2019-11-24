@@ -31,17 +31,19 @@ def add_to_cart(request, product):
     cart = get_object_or_404(Cart, pk=cart_id)
 
     # - check if passed product  is already present  within the 
-    # retrieved cart of the requesting user
+    # CartItem table
 
    
-    # check if the id of cart items underlying id and product
-    # to be added id are same
+    # check if the product to be added matches any of CartItem's
+    # underlying product id 
     if CartItem.objects.filter(product__id=product.id).exists():
+        # if there is a match, retrieve the CartItem that matches
+        # the above check
         cart_item = CartItem.objects.get(product__id=product.id)
-        # if same, then increase the cart item quanity instead
+        # then increase it's quanity
         cart_item.augment_quantity()
     else:
-        # add the product
+        # create and add cartitem to cart if there is n
         cart_item = _create_cart_item_helper(product)
         cart.items.add(cart_item)
     
