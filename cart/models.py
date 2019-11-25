@@ -62,11 +62,18 @@ class CartItem(models.Model):
         """
         return self.product.id
 
+    def get_underlying_image(self):
+        """
+        returns image of the underlying product that
+        forms a cart item
+        """
+        return self.product.image.url
+
     def get_absolute_url(self):
         """
         returns the actual url of the cart item
         """
-        return self.product.get_absolute_url()
+        return self.product.get_absolut_url()
 
     def augment_quantity(self):
         """
@@ -79,7 +86,7 @@ class CartItem(models.Model):
     def total_price(self):
         """
         calculates the total price of a cart item
-        :: cart_item_price * quantity_added_to_cart
+        :: cart_item_price * quantity_eadded_to_cart
         """
         return self.product.price * self.quantity
 
