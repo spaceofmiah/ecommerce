@@ -52,11 +52,18 @@ nav .bottom_bar_nav {
     text-align: center;
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 nav .bottom_bar_nav a {
     color: #ff94db;
     font-size: 16px;
+}
+
+nav .bottom_bar_nav span {
+    background: #fff;
+    padding: 4px;
+    border-radius: 8px;
 }
 
 @media screen and (min-width: 970px){
@@ -269,7 +276,7 @@ main .blog_latest article a {
 .cloth-list {
     margin-top: 30px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 320px));
     grid-gap: 14px;
 }
 
@@ -290,17 +297,38 @@ main .blog_latest article a {
 
 
 .cloth-list .cloth-action-btns {
+    margin-top: 15px;
     justify-content: space-around;
     text-align: center;
+    display: flex;
+    font-size: 16px;
 }
 
 .cloth-list .delete-btn {
     color: red;
-    padding: 8px 0;
 }
 
 .cloth-list .details-btn {
-    color: #2c8ad5;
+    color: #75a9d4;
+}
+
+.cloth-list .update-btn {
+    color: #1fad44;
+}
+
+.cloth-list .shop-btn {
+    color: #2196F3;
+}
+
+
+@media screen and (max-width: 620px){
+    .cloth-list {
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+    }
+
+    .cloth-list .cloth-action-btns {
+        flex-direction: column;
+    }
 }
 /** end of cloth listing **/
 
@@ -323,6 +351,4 @@ main .blog_latest article a {
     padding: 10px 18px;
     background: #c42dff;
     color: #fff;
-
 }
-

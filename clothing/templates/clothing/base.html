@@ -30,11 +30,12 @@
         <div class="bottom_bar_nav">
             <a href="{% url 'clothing:cloth_list' %}">all clothes</a>
             <a href="">trending</a>
-            <a href="">Gucci</a>
-            <a href="">Versace</a>
             {% if request.user.is_authenticated and request.user.is_staff %}
             <a href="{% url 'clothing:create_cloth' %}">add cloth</a>
             {% endif %}
+            <span>
+                <a href="{% url 'cart:cart_list' %}" id="cart-basket">&#128722;</a>
+            </span>
         </div>
     </nav>
     

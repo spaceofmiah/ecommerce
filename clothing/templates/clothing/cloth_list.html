@@ -12,12 +12,13 @@
                     <p>£ {{ cloth.price }}</p>
                     <div class="cloth-action-btns">
                         {% if request.user.is_staff == True %}
-                        <a href='{% url "clothing:delete_cloth" cloth.id %}' class="delete-btn"> delete </a>
+                        <a href='{% url "clothing:delete_cloth" cloth.id %}' class="delete-btn"> trash </a>
                         {% endif %}
-                        <a href="{{ cloth.get_absolute_url }}" class="details-btn">view details</a>
+                        <a href="{{ cloth.get_absolute_url }}" class="details-btn">view</a>
                         {% if request.user.is_staff == True %}
-                        <a href="{% url 'clothing:update_cloth' cloth.id %}" class="update-btn">update cloth</a>
+                        <a href="{% url 'clothing:update_cloth' cloth.id %}" class="update-btn">edit</a>
                         {% endif %}
+                        <a href="{% url 'cart:add_to_cart' cloth.id %}" class="shop-btn">cart</a>
                     </div>
                 </div>
 
