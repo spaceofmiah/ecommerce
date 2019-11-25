@@ -23,9 +23,16 @@ def cart_list(request):
     A cart is pending when a checkout has not been done
     A cart is completed when checkout has been done.
     '''
-    all_cart = Cart.objects.all()
+    cart_items = []
+    # get the user's cart from session
+    if (request.session['cart_present']):
+        cart_id = request.session['cart']    
+        cart = Cart.objects.get(pk=cart_id)
+        cart_items = cart.items.all()
+    
+
     return render(request, 'cart/cart_list.html', {
-        'carts': all_cart
+        'cart': cart_items
     })
 
 
