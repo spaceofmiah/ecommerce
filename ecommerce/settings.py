@@ -128,3 +128,8 @@ STATICFILES_DIRS = [BASE_DIR + '/static/',]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
+
+
+# Cart application configuration
+
+UNDERLYING_PRODUCT_MODEL= 'clothing.Cloth'
