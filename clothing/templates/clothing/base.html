@@ -20,11 +20,38 @@
                 <a class="brand_name" href="{% url 'clothing:index' %}">lowCost</a>
             </h1>
             
-            <form action="{% url 'clothing:handle_cloth_search' %}" method="POST" class="cloth_search_form">
-                {% csrf_token %}
-                <input type="text" name="cloth_name" id="id_cloth_name" placeholder="Enter name of cloth" required>
-                <input type="submit" value="Find">
-            </form>
+            <div class="cloth_search_form_wrap hide-form">
+                <form action="{% url 'clothing:handle_cloth_search' %}" method="POST" class="cloth_search_form">
+                    {% csrf_token %}
+                    <a href="#" class="toggle-search-form">
+                        <i class="fas fa-times"></i>
+                    </a>
+                    <input type="text" name="cloth_name" id="id_cloth_name" placeholder="Enter name of cloth" required>
+                    <input type="submit" value="Find">
+                </form>
+            </div>
+
+            <div class="navbar-icons">
+                <span>
+                    <a class="icon" href="{% url 'cart:cart_list' %}" id="cart-basket">
+                        <i class="fas fa-shopping-basket"></i>
+                        <p class="cart-item-count">{{ request.session.cart_item_count }}</p>
+                    </a>
+                </span>
+
+                <span>
+                    <a href="#" class="icon toggle-search-form">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </span>
+                
+                <span>
+                    <a href="#" class="icon" id="toggle-user-nav">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </span>
+                
+            </div>
         </div>
 
         <div class="bottom_bar_nav">
@@ -33,9 +60,6 @@
             {% if request.user.is_authenticated and request.user.is_staff %}
             <a href="{% url 'clothing:create_cloth' %}">add cloth</a>
             {% endif %}
-            <span>
-                <a href="{% url 'cart:cart_list' %}" id="cart-basket">&#128722;</a>
-            </span>
         </div>
     </nav>
     
@@ -71,12 +95,11 @@
             </section>
         </main>
         
+        <script src="{% static 'clothing/fontawesome-all.js' %}"></script>
         <script type="text/javascript">
-        let form_search_box = document.getElementById('id_cloth_name');
         let bottom_bar_nav = document.querySelector('.bottom_bar_nav');
         let nav = document.querySelector('nav');
-        form_search_box.addEventListener('focus', expandFormSearchBox);
-        form_search_box.addEventListener('blur', reduceFormSearchBox);
+        let icons = document.querySelectorAll('.icon');
 
 
 
@@ -84,27 +107,33 @@
             if (window.scrollY >= 70){
                 bottom_bar_nav.style.display = "none";
                 nav.style.backgroundColor = "#000";
+                icons.forEach((icon) => {
+                    icon.style.color = '#fff';
+                });
             }
 
             if (window.scrollY < 70){
                 bottom_bar_nav.style.display = "flex";
                 nav.style.backgroundColor = "#fff";
+                icons.forEach((icon) => {
+                    icon.style.color = '#000';
+                });
             }
+        });
+
+
+        let cloth_search_form_wrap= document.querySelector('.cloth_search_form_wrap');
+        let toggle_search_form = document.querySelectorAll('.toggle-search-form');
+        
+        
+        const toggle_searchFormVisibility = (event) => {
+            event.preventDefault();
+            cloth_search_form_wrap.classList.toggle('hide-form');
+        }
+
+        toggle_search_form.forEach((toggler) => {
+            toggler.addEventListener('click', toggle_searchFormVisibility);
         })
-
-
-    
-        function expandFormSearchBox() {
-            if (window.innerWidth < 670) {
-                form_search_box.style.width = '120px';
-            }
-        }
-    
-        function reduceFormSearchBox() {
-            if (window.innerWidth < 670) {
-                form_search_box.style.width = '50px';
-            }
-        }
     </script>
 
     {% block script %}
