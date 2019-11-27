@@ -50,6 +50,12 @@ class CartItem(models.Model):
         self.quantity = self.quantity + 1
         self.save()
 
+    def get_underlying_image(self):
+        """
+        returns image of the underlying product that
+        forms a cart item
+        """
+        return self.product.image.url
 
 class Cart(models.Model):
     '''

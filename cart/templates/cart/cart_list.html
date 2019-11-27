@@ -1,0 +1,25 @@
+{% extends 'clothing/base.html' %}
+{% load static %}
+{% block title %} lowCost - {% endblock title %}
+{% block content %}
+        <h2>Cart List</h2>
+        <div class="cloth-list">
+            {% if cart %}
+                {% for item in cart %}
+                <div class="cloth">
+                    <img src="{{ item.get_underlying_image }}" alt="">
+                    <h4>{{ item }}</h4>
+                    <p>{{ item.date_added|date:'Y m d' }}</p>
+                    <span class="quantity-wrap">
+                        <p>quantity</p>
+                        <input type="number" name="quantity" id="id_quantity" value="{{ item.quantity }}">
+                    </span>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">
+                    No items in cart
+                </p>
+            {% endif %}
+        </div>
+{% endblock content %}
