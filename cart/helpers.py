@@ -73,6 +73,27 @@ def add_to_cart(request, product):
     return cart
 
 
+def remove_from_cart(request, cart_item):
+    """
+    helps to remove a cart item from the cart saved in the
+    current request session object
+
+    : request -- HttpRequest object
+    : cart_item -- An instance of cart_item
+    """
+    # - get the cart id of the requesting user from session
+    cart_id = int(request.session['cart'])
+
+    # - retrieve the cart from the Cart object
+    cart = get_object_or_404(Cart, pk=cart_id)
+
+    # - remove the item from the cart
+    cart.items.remove(cart_item)
+
+
+
+
+
 def _create_cart_item_helper(product):
     """
     : private access

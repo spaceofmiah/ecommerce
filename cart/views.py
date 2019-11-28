@@ -1,9 +1,19 @@
 from django.apps import apps
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, reverse, get_object_or_404
-from cart.models import DefaultProduct, Cart, UNDERLYING_PRODUCT_MODEL
-from cart.helpers import add_to_cart
+from django.shortcuts import (
+    render, 
+    reverse, 
+    redirect,
+    get_object_or_404, 
+)
+from cart.models import (
+    DefaultProduct, 
+    Cart, 
+    UNDERLYING_PRODUCT_MODEL,
+    CartItem,
+)
+from cart.helpers import add_to_cart, remove_from_cart
 
 
 # https://docs.djangoproject.com/en/2.2/topics/settings/#calling-django-setup-is-required-for-standalone-django-usage
@@ -46,3 +56,15 @@ def add_product_to_cart(request, product_id):
     # add the product to cart
     cart = add_to_cart(request, product)
     return HttpResponseRedirect(reverse('clothing:index'))
+
+
+def remove_item_from_cart(request, item_id):
+    """
+    handles request to remove a cart item from cart
+
+    : request -- HttpRequest object
+    : item_id -- Integer serving as a Cart Item unique identity
+    """
+    cart_item = get_object_or_404(CartItem, pk=item_id)
+    remove_from_cart(request, cart_item)
+    return redirect('cart:cart_list')
