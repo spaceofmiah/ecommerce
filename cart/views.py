@@ -1,9 +1,8 @@
-from django.shortcuts import render
 from django.apps import apps
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, reverse, get_object_or_404
-from cart.models import DefaultProduct, Cart, UNDERLYING_PRODUCT_MODEL
-from cart.helpers import add_to_cart
+from django.shortcuts import render, reverse, get_object_or_404, redirect
+from cart.models import DefaultProduct, Cart, UNDERLYING_PRODUCT_MODEL, CartItem
+from cart.helpers import add_to_cart, remove_from_cart
 
 # Create your views here.
 
@@ -48,3 +47,13 @@ def cart_list(request):
     return render(request, 'cart/cart_list.html', {
         'cart': cart_items
     })
+
+def remove_item_from_cart(request, item_id):
+    """
+    handles request to remove a cart item from cart
+    : request -- HttpRequest object
+    : item_id -- Integer serving as a Cart Item unique identity
+    """
+    cart_item = get_object_or_404(CartItem, pk=item_id)
+    remove_from_cart(request, cart_item)
+    return redirect('cart:cart_list')

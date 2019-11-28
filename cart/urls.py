@@ -15,4 +15,10 @@ urlpatterns = [
             views.cart_list, 
             name='cart_list'
     ),
+
+    path(
+            'remove-from-cart/<int:item_id>',
+            views.remove_item_from_cart,
+            name="remove_from_cart"
+    ),
 ]

@@ -14,6 +14,7 @@
                         <p>quantity</p>
                         <input type="number" name="quantity" id="id_quantity" value="{{ item.quantity }}">
                     </span>
+                    <a href="{% url 'cart:remove_from_cart' item.id %}" class="delete-btn"> remove </a>
                 </div>
                 {% endfor %}
             {% else %}
