@@ -33,26 +33,45 @@ def add_to_cart(request, product):
     # - check if passed product  is already present  within the 
     # CartItem table
 
-   
+
     # check if the product to be added matches any of CartItem's
     # underlying product id 
     if CartItem.objects.filter(product__id=product.id).exists():
         # if there is a match, retrieve the CartItem that matches
         # the above check
         cart_item = CartItem.objects.get(product__id=product.id)
-        # then increase it's quanity
-        cart_item.augment_quantity()
+
+        # since we can have various cart object in our database
+        # we need to confirm if the cart_item whose underlying 
+        # product exists belongs to the current cart object
+
+        # if the current cart is not amongst other cart object
+        # that the cart_item belongs to, then add it.
+        if cart not in cart_item.belongs_to.all() and cart.pending:
+            """
+                CHECK !!! CHECK !!! CHECK !!! CHECK !!! CHECK !!!
+                
+                If this check is not done, then we'll have a cart
+                that is not retaining an added cart item  solely 
+                because the item is already present in another cart 
+                that is not in use by the current current session
+            """
+            cart_item.quantity = 1
+            cart_item.save()
+            cart.items.add(cart_item)
+        else:
+            # if the current cart is amongst the the other carts
+            # that the cart_item belongs to, then increase it's 
+            # quanity
+            cart_item.augment_quantity()
     else:
         # create and add cartitem to cart if there is n
         cart_item = _create_cart_item_helper(product)
         cart.items.add(cart_item)
-    
+        cart.save()
+            
     return cart
 
-
-
-
-## ** Helper Methods Definition ** #
 
 def _create_cart_item_helper(product):
     """

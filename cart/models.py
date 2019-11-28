@@ -107,6 +107,10 @@ class Cart(models.Model):
         editable=False
     )
 
+    # this is true if checkout has not been called on 
+    # the items within a cart, it becomes false if otherwise
+    pending = models.BooleanField(default=True)
+
     # user = models.ForeignKey(
     #     User, 
     #     on_delete=models.CASCADE, 
@@ -115,7 +119,7 @@ class Cart(models.Model):
 
     items = models.ManyToManyField(
         CartItem, 
-        related_name='+'
+        related_name='belongs_to'
     )
 
     class Meta:
@@ -129,6 +133,13 @@ class Cart(models.Model):
         Returns string representation of object
         """
         return self.ticket
+
+    def get_total_item(self):
+        """
+        Returns the total number of items present
+        within cart
+        """
+        return self.items.count()
     
 
     # An online cart cannot have two distinct representation of 

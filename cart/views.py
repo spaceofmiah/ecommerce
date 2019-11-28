@@ -29,7 +29,6 @@ def cart_list(request):
         cart_id = request.session['cart']    
         cart = Cart.objects.get(pk=cart_id)
         cart_items = cart.items.all()
-    
 
     return render(request, 'cart/cart_list.html', {
         'cart': cart_items
@@ -45,6 +44,5 @@ def add_product_to_cart(request, product_id):
         UNDERLYING_PRODUCT_MODEL, pk=product_id)
     
     # add the product to cart
-    cart = add_to_cart(request, product)    
-
+    cart = add_to_cart(request, product)
     return HttpResponseRedirect(reverse('clothing:index'))
