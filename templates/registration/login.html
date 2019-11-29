@@ -1,0 +1,33 @@
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% bootstrap_css %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'clothing/styles.css' %}">
+    <title>Login - lowCost</title>
+</head>
+<body>
+    <main>
+
+        <div class="wrapper">
+            <div>
+                <h3>Login lowCost</h3>
+                <br>
+            </div>
+
+            <form action="" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form fied_class='form-group' %}
+                {% buttons submit="Login" %}{% endbuttons %}
+            </form>
+
+            <a href="{% url 'clothing:create_new_user' %}" class="login-btn">signup</a>
+        </div>
+
+    </main>
+</body>
+</html>

@@ -60,7 +60,7 @@ ROOT_URLCONF = 'ecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,6 +131,11 @@ STATICFILES_DIRS = [BASE_DIR + '/static/',]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
+
+
+# Authentication redirect
+LOGIN_REDIRECT_URL = 'clothing:index'
+LOGOUT_REDIRECT_URL = 'login'
 
 
 
