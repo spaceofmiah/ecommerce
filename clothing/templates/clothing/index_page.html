@@ -3,7 +3,11 @@
 {% block title %} lowCost - {% endblock title %}
 {% block content %}
 <section class="hero">
-    <h1>The lowest cost you can get quality clothes</h1>
+    <h1>
+        {% if request.user.is_authenticated %}
+        Hello {{ request.user.first_name }} {{ request.user.last_name }}, with 
+        {% endif %}
+        The lowest cost you can get quality clothes</h1>
     <div>
         <img src="{% static 'clothing/images/cool_img.jpeg' %}" alt="">
     </div>

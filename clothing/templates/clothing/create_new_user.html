@@ -7,6 +7,11 @@
 <form enctype="multipart/form-data" action="{% url 'clothing:create_new_user' %}" method="POST" id="create_cloth_form">
 
     <h2>Create new user</h2>
+    {% if form.errors %}
+        {% for error in form.errors %}
+            <p class="text-danger">{{ error }}</p>
+        {% endfor %}
+    {% endif %}
     <form id="cloth_creation_form" enctype="multipart/form-data" action="{% url 'clothing:create_cloth' %}" method="POST">
         {% csrf_token %}
         {% bootstrap_form form fied_class='form-group' layout="horizontal"  %}

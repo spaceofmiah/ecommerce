@@ -61,7 +61,7 @@ nav .bottom_bar_nav a {
 }
 
 nav .top_bar_nav .navbar-icons  {
-    width: 100px;
+    width: 150px;
     display: flex;
     justify-content: space-between;
 }
@@ -76,6 +76,16 @@ nav .top_bar_nav .navbar-icons .cart-item-count {
     border-radius: 8px;
     text-align: center;
     z-index: 1;
+}
+
+.logout-btn {
+    color: rgb(255, 130, 130);
+    font-size: 15px;
+}
+
+.login-btn {
+    color: rgb(53, 200, 53);
+    font-size: 15px;
 }
 
 @media screen and (min-width: 970px){

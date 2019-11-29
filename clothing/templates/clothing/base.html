@@ -49,8 +49,16 @@
                     <a href="#" class="icon" id="toggle-user-nav">
                         <i class="fas fa-user"></i>
                     </a>
+
                 </span>
                 
+                <div class="profile-nav">
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'logout' %}" class="logout-btn">logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="login-btn">login</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
 
