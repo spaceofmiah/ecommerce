@@ -57,6 +57,13 @@ class CartItem(models.Model):
         """
         return self.product.image.url
 
+    def total_price(self):
+        """
+       calculates the total price of a cart item
+       :: cart_item_price * quantity_eadded_to_cart
+       """
+        return self.product.price * self.quantity
+
 class Cart(models.Model):
     '''
     Cart 

@@ -57,3 +57,12 @@ def remove_item_from_cart(request, item_id):
     cart_item = get_object_or_404(CartItem, pk=item_id)
     remove_from_cart(request, cart_item)
     return redirect('cart:cart_list')
+
+def process_complete_checkout(request):
+    cart_items = []
+    # get the user's cart from session
+    if (request.session['cart_present']):
+        cart_id = request.session['cart']    
+        cart = Cart.objects.get(pk=cart_id)
+        cart_items = cart.items.all()
+    return render(request, 'cart/complete_checkout.html', {'cart_items': cart_items})

@@ -23,4 +23,9 @@
                 </p>
             {% endif %}
         </div>
+        {% if cart %}
+        <div class="checkout-container">
+            <a href="{% url 'cart:complete_checkout' %}" class="checkout-btn">Checkout</a>
+        </div>
+{% endif %}
 {% endblock content %}
