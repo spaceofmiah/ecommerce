@@ -401,3 +401,21 @@ main .blog_latest article a {
     background: #c42dff;
     color: #fff;
 }
+
+/**
+    checkout btn
+*/
+.checkout-container {
+    margin-top: 35px;
+}
+
+.checkout-btn {
+    padding: 8px;
+    border:  1px solid coral;
+    border-radius: 8px;
+    background-color: #fdb79ede;
+}
+
+.checkout-btn:hover {
+    background-color: #faaa8d;
+}

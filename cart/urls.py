@@ -21,4 +21,10 @@ urlpatterns = [
             views.remove_item_from_cart,
             name="remove_from_cart"
     ),
+
+    path(
+            'complete-checkout',
+            views.process_complete_checkout,
+            name="complete_checkout"
+    ),
 ]

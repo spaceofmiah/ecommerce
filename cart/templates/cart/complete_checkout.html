@@ -1,0 +1,35 @@
+{% extends 'clothing/base.html' %}
+{% load static %}
+{% block title %} lowCost - {% endblock title %}
+{% block content %}
+        <h2>Cart List</h2>
+        <div class="cloth-list">
+            {% for item in cart_items %}
+            <div class="cloth">
+                <!-- <img src="{{ item.get_underlying_image }}" alt=""> -->
+                <h4>{{ item }}</h4>
+                <span class="quantity-wrap">
+                    <p>quantity --> {{ item.quantity }}</p>
+                </span>
+                <p>total price --> 
+                    <span class="total-price">{{ item.total_price }}</span></p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="checkout-container">
+            <p id="total-amount" style="color: green; margin-bottom: 18px;"></p>
+            <a href="" class="checkout-btn">Complete Checkout</a>
+        </div>
+{% endblock content %}
+
+{% block script %}
+    <script type="text/javascript">
+        let totalPrices = document.querySelectorAll('span.total-price');
+        let total = 0
+        totalPrices.forEach(element => {
+            total += parseInt(element.innerText);
+        });
+        document.getElementById('total-amount').innerText = "Total Cost  is " + total;
+    </script>
+{% endblock script %}
