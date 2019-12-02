@@ -57,7 +57,7 @@ ROOT_URLCONF = 'ecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ 'templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,3 +133,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 # Cart application configuration
 
 UNDERLYING_PRODUCT_MODEL= 'clothing.Cloth'
+# Authentication redirect
+LOGIN_REDIRECT_URL = 'clothing:index'
+LOGOUT_REDIRECT_URL = 'login'
