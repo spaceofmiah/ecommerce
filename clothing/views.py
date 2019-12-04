@@ -1,8 +1,9 @@
 
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import HttpResponseRedirect
 from clothing.models import Cloth
-from clothing.forms import ClothForm, ClothForm
+from clothing.forms import ClothForm, ClothForm, SignUpForm
+from django.contrib.auth import authenticate, login
 
 def index_page(request):
     """
@@ -86,3 +87,19 @@ def delete_handler(request, cloth_id):
                 reverse('clothing:cloth_detail', kwargs={'cloth_id': cloth_id}))
     Cloth.objects.get(pk=cloth_id).delete()
     return HttpResponseRedirect(reverse('clothing:cloth_list'))
+
+def sign_up_handler(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('clothing:cloth_list')
+    
+    form = SignUpForm()
+    return render(
+        request, 'clothing/create_new_user.html', {'form': form}
+    )

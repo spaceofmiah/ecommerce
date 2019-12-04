@@ -46,4 +46,9 @@ urlpatterns = [
             'delete-cloth/<int:cloth_id>', 
             views.delete_handler, 
             name='delete_cloth'),
+
+    path(
+            'create-new-user', 
+            views.sign_up_handler,
+            name='create_new_user'),
 ]

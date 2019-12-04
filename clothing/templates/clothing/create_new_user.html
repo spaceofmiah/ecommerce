@@ -1,0 +1,20 @@
+{% extends 'clothing/base.html' %}
+{% load static %}
+{% block title %} User Creation Form - {% endblock title %}
+{% block content %}
+
+
+    <h2>Create new user</h2>
+    {% if form.errors %}
+        {% for error in form.errors %}
+            <p class="text-danger">{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form id="user_creation_form" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit' value='Sign Up' />
+    </form>
+
+{% endblock content %}
