@@ -86,3 +86,10 @@ class Cart(models.Model):
     def __str__(self):
         return self.ticket
 
+    def get_total_item(self):
+        """
+        Returns the total number of items present
+        within cart
+        """
+        return self.items.count()
+

@@ -8,7 +8,7 @@ response flow.
 """
 
 from cart.helpers import _create_cart
-
+from cart.models import Cart
 
 
 
@@ -21,7 +21,8 @@ class CartMiddleware:
         if request.session.get('cart_present', False):
             # if a cart is present for the user, 
             # then there is no need to do anything
-            print("*** cart is present ***")
+            cart = Cart.objects.get(pk=int(request.session['cart']))
+            request.session['cart_item_count'] = cart.get_total_item()
             pass
         else:
             # if no cart is present for the user, then
