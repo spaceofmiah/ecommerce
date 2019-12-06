@@ -83,6 +83,11 @@ class Cart(models.Model):
         related_name='+'
     )
 
+    # this is true if checkout has not been called on 
+    # the items within a cart, it becomes false if otherwise
+    pending = models.BooleanField(default=True)
+    
+
     def __str__(self):
         return self.ticket
 

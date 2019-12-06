@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, get_object_or_404, redirect
 from cart.models import DefaultProduct, Cart, UNDERLYING_PRODUCT_MODEL, CartItem
 from cart.helpers import add_to_cart, remove_from_cart
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -58,6 +59,7 @@ def remove_item_from_cart(request, item_id):
     remove_from_cart(request, cart_item)
     return redirect('cart:cart_list')
 
+@login_required
 def process_complete_checkout(request):
     cart_items = []
     # get the user's cart from session
