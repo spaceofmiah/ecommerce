@@ -3,15 +3,25 @@
 {% block title %} {{cloth.name}} - {% endblock title %}
 {% block content %}
 
-<h1>{{cloth.name}}</h1>
+<h1 class="my-3 text-center">{{cloth.name}} Details</h1>
 
 <div class="cloth">
     <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
     <h4>{{ cloth.name }}</h4>
-    <p>{{ cloth.available_stock }} available</p>
+    <p>{{ cloth.available_stock }} left in stock</p>
     <p>{{ cloth.material_type }}</p>
     <p>£ {{ cloth.price }}</p>
     <p>{{ cloth.description }}</p>
+</div>
+
+<div class="text-center">
+    {% if request.user.is_staff == True %}
+    <a href='{% url "clothing:delete_cloth" cloth.id %}' class="btn btn-md btn-outline-danger"> trash </a>
+
+    <a href="{% url 'clothing:update_cloth' cloth.id %}" class="btn btn-md btn-outline-primary">edit</a>
+    {% endif %}
+
+    <a href="{% url 'cart:add_to_cart' cloth.id %}" class="btn btn-md btn-outline-success">cart</a>
 </div>
 
 {% endblock content %}

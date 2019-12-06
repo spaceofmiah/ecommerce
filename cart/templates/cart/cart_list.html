@@ -5,18 +5,33 @@
         <h2>Cart List</h2>
         <div class="cloth-list">
             {% if cart %}
+            <div class="row">
                 {% for item in cart %}
-                <div class="cloth">
-                    <img src="{{ item.get_underlying_image }}" alt="">
-                    <h4>{{ item }}</h4>
-                    <p>{{ item.date_added|date:'Y m d' }}</p>
-                    <span class="quantity-wrap">
-                        <p>quantity</p>
-                        <input type="number" name="quantity" id="id_quantity" value="{{ item.quantity }}">
-                    </span>
-                    <a href='{% url "cart:remove_from_cart" item.id %}' class="delete-btn"> remove </a>
+
+                    <div class="col-sm-6 col-lg-3 my-1">
+                        <div class="card py-1">
+                            <img src="{{ item.get_underlying_image }}" alt="{{ cloth.name }}" style="height: 250px;">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <h4>{{ item }}</h4>
+                                    <p class="ml-4 mt-1 text-sm">{{ item.date_added|date:'Y m d' }}</p>
+                                </div>
+                                <p>price : <span class="font-weight-bold"> £ {{ item.product.price }} </span></p>
+                                <div class="mb-2">
+                                    <p>quantity</p>
+                                    <form action="{% url 'cart:increment_quantity' %}" method="GET">
+                                        <input type="hidden" value="{{ item.id }}" name="item_id" id="id_item_id">
+                                        <input type="number" style="width: 30%;" class="form-control" name="quantity" id="id_quantity" value="{{ item.quantity }}">
+                                        <input type="submit" value="update quantity" class="my-1 btn text-sm btn-sm btn-primary"/>
+                                    </form>
+                                </div>
+                                <a href='{% url "cart:remove_from_cart" item.id %}' class="text-danger btn btn-block btn-outline-danger"> remove </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% endfor %}
                 </div>
-                {% endfor %}
             {% else %}
                 <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">
                     No items in cart
@@ -25,8 +40,8 @@
         </div>
 
         {% if cart %}
-        <div class="checkout-container">
-            <a href="{% url 'cart:complete_checkout' %}" class="checkout-btn">Checkout</a>
+        <div class="my-4">
+            <a href="{% url 'cart:complete_checkout' %}" class="btn btn-lg btn-success">Checkout</a>
         </div>
         {% endif %}
 {% endblock content %}

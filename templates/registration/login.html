@@ -11,21 +11,24 @@
     <title>Login - lowCost</title>
 </head>
 <body>
-    <main>
+    <main class="container">
 
         <div class="wrapper">
-            <div>
-                <h3>Login lowCost</h3>
-                <br>
+            <div class="mb-3">
+                <a href="{% url 'clothing:index' %}" class="h4 mb-3">lowCost</a>
             </div>
 
-            <form action="" method="post">
-                {% csrf_token %}
-                {% bootstrap_form form fied_class='form-group' %}
-                {% buttons submit="Login" %}{% endbuttons %}
-            </form>
-
-            <a href="{% url 'clothing:create_new_user' %}" class="login-btn">signup</a>
+            <div class="">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form fied_class='form-group' %}
+                    {% buttons submit="Login" %}{% endbuttons %}
+                </form>
+                <p class="text-secondary">
+                    don't have an account ?
+                    <a href="{% url 'clothing:create_new_user' %}" class="btn btn-md btn-success">sign up</a>
+                </p>
+            </div>
         </div>
 
     </main>

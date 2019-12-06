@@ -2,50 +2,39 @@
 {% load static %}
 {% block title %} lowCost - {% endblock title %}
 {% block content %}
-<section class="hero">
-    <h1>
-        {% if request.user.is_authenticated %}
-        Hello {{ request.user.first_name }} {{ request.user.last_name }}, with 
-        {% endif %}
-        The lowest cost you can get quality clothes</h1>
-    <div>
-        <img src="{% static 'clothing/images/cool_img.jpeg' %}" alt="">
-    </div>
-</section>
 
+<div class="jumbotron my-3">
+    <h1>lowCost</h1>
+    <p class="lead">Now you can buy quality product at a very low cost. Search for product below</p>
+    <form class="form-inline my-2" action="{% url 'clothing:handle_cloth_search' %}" method="GET">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" type="text" name="cloth_name" id="id_cloth_name" 
+                placeholder="Enter cloth name" aria-label="Search">
+        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="search">
+    </form>
+</div>
 
-<section class="trending">
-    <h3 class="title">All Men's Choice</h3>
-    <div class="content">
-        <div class="img_wrap">
-            <img src="{% static 'clothing/images/nikey.jpeg' %}" alt="">
+{% if cloth_list %}
+<div class="row">
+    {% for cloth in cloth_list %}
+    <div class="col my-1">
+        <div class="card">
+            <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}" style="height: 320px;">
+            <div class="card-body text-center">
+                <h4>{{ cloth.name }}</h4>
+                <p>{{ cloth.material_type }}</p>
+                <p>£ {{ cloth.price }}</p>
+                <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="btn btn-primary">view details</a>
+            </div>
         </div>
-
-        <div class="wrap">
-            <h3>Nike Boost</h3>
-            <p>best choice</p>
-            <p>£78</p>
-        </div>
     </div>
-</section>
+    {% endfor %}
+</div>
+{% endif %}
 
 
-<section class="quick_list">
-    {% if cloth_list %}
-    <div class="cloth-list">
-        {% for cloth in cloth_list %}
-        <div class="cloth">
-            <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
-            <h4>{{ cloth.name }}</h4>
-            <p>{{ cloth.material_type }}</p>
-            <p>£ {{ cloth.price }}</p>
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
+<div class="text-center my-4">
+    <a href="{% url 'clothing:cloth_list' %}" class="btn btn-md btn-success btn-block">Load More</a>
+</div>
 
-    <div class="view_all_wrap">
-        <a href="{% url 'clothing:cloth_list' %}" id="view_all">View All</a>
-    </div>
-</section>
 {% endblock content %}

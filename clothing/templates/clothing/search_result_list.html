@@ -2,21 +2,28 @@
 {% load static %}
 {% block title %} lowCost - {% endblock title %}
 {% block content %}
-        <h2>Results for search</h2>
-        <div class="cloth-list">
-            {% if search_result %}
-                {% for cloth in search_result %}
-                    <div class="cloth">
-                        <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
+    <h2 class="text-center mb-4">Results for search</h2>
+        
+    {% if search_result %}
+    <div class="row">
+            {% for cloth in search_result %}
+            <div class="col my-1">
+                <div class="card">
+                    <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}" style="height: 320px;">
+                    <div class="card-body text-center">
                         <h4>{{ cloth.name }}</h4>
                         <p>{{ cloth.material_type }}</p>
                         <p>£ {{ cloth.price }}</p>
+                        <a href="#" class="btn btn-primary">view details</a>
                     </div>
-                {% endfor %}
-            {% else %}
-                <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">
-                    No cloth name matched cloth
-                </p>
-            {% endif %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
+    {% else %}
+        <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">
+            No cloth name matched cloth
+        </p>
+    {% endif %}
+        
 {% endblock content %}

@@ -1,151 +1,81 @@
-<!DOCTYPE html>
 {% load static %}
 {% load bootstrap4 %}
+
+<!doctype html>
 <html lang="en">
 
 <head>
-    {% bootstrap_css %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static 'clothing/styles.css' %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %} {% endblock title %} lowCost</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
+    {% bootstrap_css %}
+    <link href="{% static 'clothing/styles.css' %}" rel="stylesheet">
     
 </head>
 
-<body>
-    <nav>
-        <div class="top_bar_nav">
-            <h1>
-                <a class="brand_name" href="{% url 'clothing:index' %}">lowCost</a>
-            </h1>
-            
-            <div class="cloth_search_form_wrap hide-form">
-                <form action="{% url 'clothing:handle_cloth_search' %}" method="POST" class="cloth_search_form">
-                    {% csrf_token %}
-                    <a href="#" class="toggle-search-form">
-                        <i class="fas fa-times"></i>
-                    </a>
-                    <input type="text" name="cloth_name" id="id_cloth_name" placeholder="Enter name of cloth" required>
-                    <input type="submit" value="Find">
-                </form>
-            </div>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand mr-auto mr-lg-0" href="{% url 'clothing:index' %}">lowCost</a>
 
-            <div class="navbar-icons">
-                <span>
-                    <a class="icon" href="{% url 'cart:cart_list' %}" id="cart-basket">
-                        <i class="fas fa-shopping-basket"></i>
-                        <p class="cart-item-count">{{ request.session.cart_item_count }}</p>
-                    </a>
-                </span>
+        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <span>
-                    <a href="#" class="icon toggle-search-form">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </span>
-                
-                <span>
-                    <a href="#" class="icon" id="toggle-user-nav">
-                        <i class="fas fa-user"></i>
-                    </a>
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'clothing:index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'clothing:cloth_list' %}">clothes</a>
+                </li>
 
-                </span>
-                
-                <div class="profile-nav">
-                    {% if request.user.is_authenticated %}
-                        <a href="{% url 'logout' %}" class="logout-btn">logout</a>
-                    {% else %}
-                        <a href="{% url 'login' %}" class="login-btn">login</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+                {% if request.user.is_staff %}
+                <li class="nav-item">
+                    <a href="{% url 'clothing:create_cloth' %}" class="nav-link text-warning">add new cloth</a>
+                </li>
+                {% endif %}
 
-        <div class="bottom_bar_nav">
-            <a href="{% url 'clothing:cloth_list' %}">all clothes</a>
-            <a href="">trending</a>
-            {% if request.user.is_authenticated and request.user.is_staff %}
-            <a href="{% url 'clothing:create_cloth' %}">add cloth</a>
-            {% endif %}
+                {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                            Hello, {{ request.user.first_name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item text-danger" href="{% url 'logout' %}">logout</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link btn btn-md btn-outline-warning" href="{% url 'login' %}">login</a>
+                </li>
+                {% endif %}
+            </ul>
         </div>
     </nav>
+
     
-    
-    <main class="wrapper">
-        {% block content %}
+
+    <main role="main" class="container py-4">
         
+        <div class="shopping-cart">
+            <a href="{% url 'cart:cart_list' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-shopping-basket" id="basket"></i> 
+                <span class="badge badge-light">{{ request.session.cart_item_count }}</span>
+            </a>
+        </div>
+    
+        
+        {% block content %}
+
         {% endblock content %}
         
-        <section class="blog_latest">
-            <article>
-                <h4 class="title">How to have fab dress collection</h4>
-                <p>
-                    Donne de et le de volupté parce dont dit pleurs d'un, 
-                    genoux quel pour tete qu'un d'athlete. Fait de et cette 
-                        mensonge mettrait haut l'elégance, yeux la beauté un 
-                        aussi qu'elle. Le masque extase monstre mon mal 
-                    </p>
-                    <a href="">read more</a>
-                </article>
-    
-                <article>
-                    <h4 class="title">Killer dress patterns for the year</h4>
-                    <p>
-                        Donne de et le de volupté parce dont dit pleurs d'un, 
-                        genoux quel pour tete qu'un d'athlete. Fait de et cette 
-                        mensonge mettrait haut l'elégance, yeux la beauté un 
-                        aussi qu'elle. Le masque extase monstre mon mal 
-                    </p>
-                    
-                    <a href="">read more</a>
-                </article>
-            </section>
-        </main>
-        
-        <script src="{% static 'clothing/fontawesome-all.js' %}"></script>
-        <script type="text/javascript">
-        let bottom_bar_nav = document.querySelector('.bottom_bar_nav');
-        let nav = document.querySelector('nav');
-        let icons = document.querySelectorAll('.icon');
-
-
-
-        window.addEventListener('scroll', (e) => {
-            if (window.scrollY >= 70){
-                bottom_bar_nav.style.display = "none";
-                nav.style.backgroundColor = "#000";
-                icons.forEach((icon) => {
-                    icon.style.color = '#fff';
-                });
-            }
-
-            if (window.scrollY < 70){
-                bottom_bar_nav.style.display = "flex";
-                nav.style.backgroundColor = "#fff";
-                icons.forEach((icon) => {
-                    icon.style.color = '#000';
-                });
-            }
-        });
-
-
-        let cloth_search_form_wrap= document.querySelector('.cloth_search_form_wrap');
-        let toggle_search_form = document.querySelectorAll('.toggle-search-form');
-        
-        
-        const toggle_searchFormVisibility = (event) => {
-            event.preventDefault();
-            cloth_search_form_wrap.classList.toggle('hide-form');
-        }
-
-        toggle_search_form.forEach((toggler) => {
-            toggler.addEventListener('click', toggle_searchFormVisibility);
-        })
-    </script>
-
-    {% block script %}
-
-    {% endblock script %}
+    </main>
+     
+    {% bootstrap_javascript jquery='full' %}
+    <script src="{% static 'clothing/script.js' %}"></script>
 </body>
+
 </html>

@@ -1,6 +1,7 @@
 from django.apps import apps
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import (
     render, 
     reverse, 
@@ -69,7 +70,7 @@ def remove_item_from_cart(request, item_id):
     remove_from_cart(request, cart_item)
     return redirect('cart:cart_list')
 
-
+@login_required
 def process_complete_checkout(request):
     cart_items = []
     # get the user's cart from session
@@ -78,5 +79,14 @@ def process_complete_checkout(request):
         cart = Cart.objects.get(pk=cart_id)
         cart_items = cart.items.all()
     return render(request, 'cart/complete_checkout.html', {'cart_items': cart_items})
+
+def increment_quantity(request):
+    item_id = int(request.GET.get('item_id'))
+    item = get_object_or_404(CartItem, id=item_id)
+    quantity = int(request.GET.get('quantity'))
+
+    item.quantity = quantity
+    item.save()
+    return redirect("cart:cart_list")
 
 

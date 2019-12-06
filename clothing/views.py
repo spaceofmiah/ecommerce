@@ -36,7 +36,7 @@ def handle_cloth_search(request):
 
     : request -> HttpRequest object
     """
-    searched_name = request.POST['cloth_name']
+    searched_name = request.GET.get('cloth_name')
     search_result = Cloth.objects.filter(name__icontains=searched_name)
     return render(request, 'clothing/search_result_list.html', 
                                         {'search_result': search_result})
