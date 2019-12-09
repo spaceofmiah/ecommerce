@@ -2,31 +2,32 @@
 {% load static %}
 {% block title %} lowCost - {% endblock title %}
 {% block content %}
-        <h2>All Clothes</h2>
-        <div class="cloth-list">
-            {% if cloth_list %}
-                {% for cloth in cloth_list %}
-                <div class="cloth">
-                    <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
+    <h2 class="text-center mb-4">All Clothes</h2>
+       
+    {% if cloth_list %}
+    <div class="row">
+        {% for cloth in cloth_list %}
+        <div class="col my-1">
+            <div class="card">
+                <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}" style="height: 320px;">
+                <div class="card-body text-center">
                     <h4>{{ cloth.name }}</h4>
+                    <p>{{ cloth.material_type }}</p>
                     <p>£ {{ cloth.price }}</p>
-                    <div class="cloth-action-btns">
-                        {% if request.user.is_staff == True %}
-                        <a href='{% url "clothing:delete_cloth" cloth.id %}' class="delete-btn"> trash </a>
-                        {% endif %}
-                        <a href="{{ cloth.get_absolute_url }}" class="details-btn">view</a>
-                        {% if request.user.is_staff == True %}
-                        <a href="{% url 'clothing:update_cloth' cloth.id %}" class="update-btn">edit</a>
-                        {% endif %}
-                        <a href="{% url 'cart:add_to_cart' cloth.id %}" class="shop-btn">cart</a>
+                   
+                    <div class="text-center my-2">
+                            <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="btn btn-primary">view</a>
+                        <a href="{% url 'cart:add_to_cart' cloth.id %}" class="btn btn-md btn-outline-success">cart</a>
                     </div>
                 </div>
-
-                {% endfor %}
-            {% else %}
-                <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">
-                    Cloth store is empty
-                </p>
-            {% endif %}
+            </div>
         </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">
+            Cloth store is empty
+        </p>
+    {% endif %}
+ 
 {% endblock content %}

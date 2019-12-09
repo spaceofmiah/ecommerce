@@ -1,20 +1,21 @@
 {% extends 'clothing/base.html' %}
 {% load static %}
+{% load bootstrap4 %}
 {% block title %} User Creation Form - {% endblock title %}
 {% block content %}
-
-
+ 
+<form enctype="multipart/form-data" action="{% url 'clothing:create_new_user' %}" method="POST" id="create_cloth_form">
+ 
     <h2>Create new user</h2>
     {% if form.errors %}
         {% for error in form.errors %}
             <p class="text-danger">{{ error }}</p>
         {% endfor %}
     {% endif %}
-
-    <form id="user_creation_form" method="POST">
+    <form id="cloth_creation_form" enctype="multipart/form-data" action="{% url 'clothing:create_cloth' %}" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type='submit' value='Sign Up' />
+        {% bootstrap_form form fied_class='form-group' layout="horizontal"  %}
+        {% buttons submit="Sign Up" %}{% endbuttons %}
     </form>
-
+ 
 {% endblock content %}

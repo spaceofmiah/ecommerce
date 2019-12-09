@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'clothing',
-    'cart'
+    'cart',
+    # third party library*
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [

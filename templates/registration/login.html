@@ -1,7 +1,9 @@
 {% load static %}
+{% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% bootstrap_css %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,23 +11,26 @@
     <title>Login - lowCost</title>
 </head>
 <body>
-    <main>
-
+    <main class="container">
+ 
         <div class="wrapper">
-            <div>
-                <h3>Login lowCost</h3>
-                <br>
+            <div class="mb-3">
+                <a href="{% url 'clothing:index' %}" class="h4 mb-3">lowCost</a>
             </div>
-
-            <form action="" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Login" />
-            </form>
-
-            
+ 
+            <div class="">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form fied_class='form-group' %}
+                    {% buttons submit="Login" %}{% endbuttons %}
+                </form>
+                <p class="text-secondary">
+                    don't have an account ?
+                    <a href="{% url 'clothing:create_new_user' %}" class="btn btn-md btn-success">sign up</a>
+                </p>
+            </div>
         </div>
-
+ 
     </main>
 </body>
 </html>

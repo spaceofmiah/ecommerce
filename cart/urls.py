@@ -27,4 +27,10 @@ urlpatterns = [
             views.process_complete_checkout,
             name="complete_checkout"
     ),
+
+    path(
+            'increase-quantity',
+            views.increment_quantity,
+            name='increment_quantity'
+    ),
 ]
