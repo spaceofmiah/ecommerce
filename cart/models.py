@@ -139,7 +139,12 @@ class Cart(models.Model):
         Returns the total number of items present
         within cart
         """
-        return self.items.count()
+        total_item_count = 0
+        for item in self.items.all():
+            total_item_count += item.quantity
+
+        print(total_item_count)
+        return total_item_count
     
 
     # An online cart cannot have two distinct representation of 
