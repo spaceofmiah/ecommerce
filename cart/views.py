@@ -14,7 +14,7 @@ from cart.models import (
     UNDERLYING_PRODUCT_MODEL,
     CartItem,
 )
-from cart.helpers import add_to_cart, remove_from_cart
+from cart.utils import add_to_cart, remove_from_cart
 
 
 # https://docs.djangoproject.com/en/2.2/topics/settings/#calling-django-setup-is-required-for-standalone-django-usage
@@ -70,6 +70,7 @@ def remove_item_from_cart(request, item_id):
     remove_from_cart(request, cart_item)
     return redirect('cart:cart_list')
 
+
 @login_required
 def process_complete_checkout(request):
     cart_items = []
@@ -80,13 +81,15 @@ def process_complete_checkout(request):
         cart_items = cart.items.all()
     return render(request, 'cart/complete_checkout.html', {'cart_items': cart_items})
 
+
 def increment_quantity(request):
     item_id = int(request.GET.get('item_id'))
     item = get_object_or_404(CartItem, id=item_id)
     quantity = int(request.GET.get('quantity'))
+    print(quantity)
 
     item.quantity = quantity
     item.save()
-    return redirect("cart:cart_list")
+    return redirect("clothing:index")
 
 

@@ -142,8 +142,6 @@ class Cart(models.Model):
         total_item_count = 0
         for item in self.items.all():
             total_item_count += item.quantity
-
-        print(total_item_count)
         return total_item_count
     
 
