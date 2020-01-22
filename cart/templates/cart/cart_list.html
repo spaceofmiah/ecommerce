@@ -19,7 +19,7 @@
                                 <p>price : <span class="font-weight-bold"> £ {{ item.product.price }} </span></p>
                                 <div class="mb-2">
                                     <p>quantity</p>
-                                    <form action="{% url 'cart:increment_quantity' %}" method="GET">
+                                    <form action="{% url 'cart:increment_quantity' %}" method="POST">{% csrf_token %}
                                         <input type="hidden" value="{{ item.id }}" name="item_id" id="id_item_id">
                                         <input type="number" style="width: 30%;" class="form-control" name="quantity" id="id_quantity" value="{{ item.quantity }}">
                                         <input type="submit" value="update quantity" class="my-1 btn text-sm btn-sm btn-primary"/>

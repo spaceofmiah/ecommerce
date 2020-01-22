@@ -14,7 +14,7 @@ from cart.models import (
     UNDERLYING_PRODUCT_MODEL,
     CartItem,
 )
-from cart.utils import add_to_cart, remove_from_cart
+from cart.utils import add_to_cart, remove_from_cart, get_cart_items
 
 
 # https://docs.djangoproject.com/en/2.2/topics/settings/#calling-django-setup-is-required-for-standalone-django-usage
@@ -26,6 +26,9 @@ if type(UNDERLYING_PRODUCT_MODEL) == str:
     UNDERLYING_PRODUCT_MODEL = apps.get_model(path[0], path[1])
 
 
+
+
+
 def cart_list(request):
     '''
     returns a list of all available carts, 
@@ -34,16 +37,11 @@ def cart_list(request):
     A cart is pending when a checkout has not been done
     A cart is completed when checkout has been done.
     '''
-    cart_items = []
-    # get the user's cart from session
-    if (request.session['cart_present']):
-        cart_id = request.session['cart']    
-        cart = Cart.objects.get(pk=cart_id)
-        cart_items = cart.items.all()
-
+    cart_items = get_cart_items(request)
     return render(request, 'cart/cart_list.html', {
         'cart': cart_items
     })
+
 
 
 def add_product_to_cart(request, product_id):
@@ -59,6 +57,7 @@ def add_product_to_cart(request, product_id):
     return HttpResponseRedirect(reverse('clothing:index'))
 
 
+
 def remove_item_from_cart(request, item_id):
     """
     handles request to remove a cart item from cart
@@ -69,6 +68,7 @@ def remove_item_from_cart(request, item_id):
     cart_item = get_object_or_404(CartItem, pk=item_id)
     remove_from_cart(request, cart_item)
     return redirect('cart:cart_list')
+
 
 
 @login_required
@@ -82,16 +82,17 @@ def process_complete_checkout(request):
     return render(request, 'cart/complete_checkout.html', {'cart_items': cart_items})
 
 
+
 def increment_quantity(request):
-    item_id = int(request.GET.get('item_id'))
+    quantity = int(request.POST.get('quantity'))
+    item_id = int(request.POST.get('item_id'))
     item = get_object_or_404(CartItem, id=item_id)
-    quantity = int(request.GET.get('quantity'))
 
     if quantity < 1:
         quantity = 1
-
     item.quantity = quantity
     item.save()
-    return redirect("clothing:index")
 
+    cart_items = get_cart_items(request)
+    return redirect('cart:cart_list')
 
