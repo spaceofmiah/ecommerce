@@ -15,6 +15,19 @@ def _create_cart():
     return cart
 
 
+def _create_cart_item_helper(product):
+    """
+    : private access
+    creates and return a new cart item
+
+    : product -- this is the product that is to be
+    added to cart
+    """
+    cart_item = CartItem.objects.create(product = product)
+    return cart_item
+
+
+
 def add_to_cart(request, product):
     """
     adds a product to cart and increments
@@ -25,6 +38,17 @@ def add_to_cart(request, product):
     : product -- the product to be added to cart
     """
     # - get the cart id of the requesting user from session
+    if request.session.get('cart', False):
+        pass
+    else:
+        # if no cart is present for the user, then create a
+        # create one
+        cart  = _create_cart()
+        request.session['cart'] = cart.id
+        request.session['cart_present'] = True
+        request.session['cart_item_count'] = cart.get_total_item()
+
+
     cart_id = int(request.session['cart'])
 
     # - retrieve the cart from the Cart object
@@ -69,8 +93,9 @@ def add_to_cart(request, product):
         cart_item = _create_cart_item_helper(product)
         cart.items.add(cart_item)
         cart.save()
-            
     return cart
+
+
 
 
 def remove_from_cart(request, cart_item):
@@ -90,19 +115,4 @@ def remove_from_cart(request, cart_item):
     # - remove the item from the cart
     cart.items.remove(cart_item)
 
-
-
-
-
-def _create_cart_item_helper(product):
-    """
-    : private access
-    creates and return a new cart item
-
-    : product -- this is the product that is to be
-    added to cart
-    """
-    cart_item = CartItem.objects.create(product = product)
-    print(f"{cart_item} created sucessfully")
-    return cart_item
 
