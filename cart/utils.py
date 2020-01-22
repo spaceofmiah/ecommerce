@@ -116,3 +116,13 @@ def remove_from_cart(request, cart_item):
     cart.items.remove(cart_item)
 
 
+
+
+def get_cart_items(request):
+    # get the user's cart from session
+    if (request.session['cart_present']):
+        cart_id = request.session['cart']    
+        cart = Cart.objects.get(pk=cart_id)
+        return cart.items.all()
+    return []
+
