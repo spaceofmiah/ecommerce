@@ -86,7 +86,9 @@ def increment_quantity(request):
     item_id = int(request.GET.get('item_id'))
     item = get_object_or_404(CartItem, id=item_id)
     quantity = int(request.GET.get('quantity'))
-    print(quantity)
+
+    if quantity < 1:
+        quantity = 1
 
     item.quantity = quantity
     item.save()

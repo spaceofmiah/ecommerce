@@ -1,13 +1,3 @@
-"""
-This middleware will be used to check if there is a 
-cart present for the current user or not, and if not
-a cart is assigned for the current user session
-
-Middleware is same as what is called filter in jsp
-that serves as a middle man between request and 
-response flow.
-"""
-from django.utils import timezone
 from django.contrib.sessions.models import Session
 
 
