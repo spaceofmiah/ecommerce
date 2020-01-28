@@ -1,53 +1,61 @@
 from django.apps import apps
+from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, reverse, get_object_or_404, redirect
-from cart.models import DefaultProduct, Cart, UNDERLYING_PRODUCT_MODEL, CartItem
-from cart.helpers import add_to_cart, remove_from_cart
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import (
+    render, 
+    reverse, 
+    redirect,
+    get_object_or_404, 
+)
+from cart.models import (
+    DefaultProduct, 
+    Cart, 
+    UNDERLYING_PRODUCT_MODEL,
+    CartItem,
+)
+from cart.utils import add_to_cart, remove_from_cart, get_cart_items
 
-# Create your views here.
 
-
-### if an underlying product model is configured in settings, get the real 
-### model as what was
+# https://docs.djangoproject.com/en/2.2/topics/settings/#calling-django-setup-is-required-for-standalone-django-usage
+# helpful link
+### if an underlying product model is configured, get the real 
+### model
 if type(UNDERLYING_PRODUCT_MODEL) == str:
     path = UNDERLYING_PRODUCT_MODEL.split('.')
     UNDERLYING_PRODUCT_MODEL = apps.get_model(path[0], path[1])
 
 
 
+
+
+def cart_list(request):
+    '''
+    returns a list of all available carts, 
+    both pending and completed. 
+    A cart is pending when a checkout has not been done
+    A cart is completed when checkout has been done.
+    '''
+    cart_items = get_cart_items(request)
+    return render(request, 'cart/cart_list.html', {
+        'cart': cart_items
+    })
+
+
+
 def add_product_to_cart(request, product_id):
     '''
     handles request to add a product to cart
-
-    : request : HttpRequest object
-    : product_id : the unique identity of the UNDERLYING_PRODUCT_MODEL
     '''
     # retrieve the product that's to be added to cart
     product = get_object_or_404(
         UNDERLYING_PRODUCT_MODEL, pk=product_id)
     
-    # add the product to cart by using add_to_cart helper method
+    # add the product to cart
     cart = add_to_cart(request, product)
     return HttpResponseRedirect(reverse('clothing:index'))
 
 
-def cart_list(request):
-    '''
-    Retrieves all cart items saved in a variable within the cart
-     and return a response to the user 
-     '''
-    cart_items = []
-    # get the user's cart from session
-    if (request.session['cart_present']):
-        cart_id = request.session['cart']    
-        cart = Cart.objects.get(pk=cart_id)
-        cart_items = cart.items.all()
-    
-
-    return render(request, 'cart/cart_list.html', {
-        'cart': cart_items
-    })
 
 def remove_item_from_cart(request, item_id):
     """
@@ -59,6 +67,8 @@ def remove_item_from_cart(request, item_id):
     remove_from_cart(request, cart_item)
     return redirect('cart:cart_list')
 
+
+
 @login_required
 def process_complete_checkout(request):
     cart_items = []
@@ -69,14 +79,17 @@ def process_complete_checkout(request):
         cart_items = cart.items.all()
     return render(request, 'cart/complete_checkout.html', {'cart_items': cart_items})
 
+
+
 def increment_quantity(request):
-    """
-   handles the increment of a cart item's quantity
-   """
-    item_id = int(request.GET.get('item_id'))
+    quantity = int(request.POST.get('quantity'))
+    item_id = int(request.POST.get('item_id'))
     item = get_object_or_404(CartItem, id=item_id)
-    quantity = int(request.GET.get('quantity'))
- 
+
+    if quantity < 1:
+        quantity = 1
     item.quantity = quantity
     item.save()
-    return redirect("cart:cart_list")
+
+    cart_items = get_cart_items(request)
+    return redirect('cart:cart_list')
