@@ -32,9 +32,13 @@ def handle_cloth_search(request):
     : request -> HttpRequest object
     """
     searched_name = request.GET.get('cloth_name')
-    search_result = Cloth.objects.filter(name__icontains=searched_name)
-    return render(request, 'clothing/search_result_list.html', 
-                                        {'search_result': search_result})
+    context = dict()
+    
+    if searched_name:
+        search_result = Cloth.objects.filter(name__icontains=searched_name)
+        context = {'search_result': search_result}
+        
+    return render(request, 'clothing/search_result_list.html', context)
 
 def handle_cloth_creation(request):
     """
