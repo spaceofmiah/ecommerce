@@ -7,7 +7,7 @@
             {% if cart %}
             <div class="row">
                 {% for item in cart %}
- 
+
                     <div class="col-sm-6 col-lg-3 my-1">
                         <div class="card py-1">
                             <img src="{{ item.get_underlying_image }}" alt="{{ cloth.name }}" style="height: 250px;">
@@ -19,17 +19,17 @@
                                 <p>price : <span class="font-weight-bold"> £ {{ item.product.price }} </span></p>
                                 <div class="mb-2">
                                     <p>quantity</p>
-                                    <form action="{% url 'cart:increment_quantity' %}" method="GET">
+                                    <form action="{% url 'cart:increment_quantity' %}" method="POST">{% csrf_token %}
                                         <input type="hidden" value="{{ item.id }}" name="item_id" id="id_item_id">
                                         <input type="number" style="width: 30%;" class="form-control" name="quantity" id="id_quantity" value="{{ item.quantity }}">
-                                        <input type="submit" value="update quantity" class="my-1 btn text-sm btn-sm btn-dark"/>
+                                        <input type="submit" value="update quantity" class="my-1 btn text-sm btn-sm btn-primary"/>
                                     </form>
                                 </div>
-                                <a href='{% url "cart:remove_from_cart" item.id %}' class="text-dark btn btn-block btn-outline-dark"> remove </a>
+                                <a href='{% url "cart:remove_from_cart" item.id %}' class="text-danger btn btn-block btn-outline-danger"> remove </a>
                             </div>
                         </div>
                     </div>
-                   
+                    
                     {% endfor %}
                 </div>
             {% else %}
@@ -38,11 +38,10 @@
                 </p>
             {% endif %}
         </div>
- 
+
         {% if cart %}
         <div class="my-4">
             <a href="{% url 'cart:complete_checkout' %}" class="btn btn-lg btn-success">Checkout</a>
         </div>
         {% endif %}
 {% endblock content %}
-
