@@ -3,38 +3,60 @@
 {% block title %} lowCost - {% endblock title %}
 {% block content %}
  
-<div class="jumbotron my-3">
-    <h1>lowCost</h1>
-    <p class="lead">Now you can buy quality product at a very low cost. Search for product below</p>
-    <form class="form-inline my-2" action="{% url 'clothing:handle_cloth_search' %}" method="GET">
-        {% csrf_token %}
-        <input class="form-control mr-sm-2" type="text" name="cloth_name" id="id_cloth_name"
-               placeholder="Enter cloth name" aria-label="Search">
-        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="search">
-    </form>
+<div class="container">
+    <div class="row">        
+        <div class="col-md-6 col-xs-6 text-right">
+    <h1><em><strong><br><br><br>
+        {% if request.user.is_authenticated %}
+        Hello {{ request.user.first_name }} {{ request.user.last_name }},<br> with 
+        {% endif %}
+        The lowest cost you can get quality clothes</strong></em></h1></div>
+    <div class="col-md-6 col-xs-6">
+        <img src="{% static 'clothing/images/paperchase.jpeg' %}" alt="" style="height: 700px; width: 700px;">
+    </div>
 </div>
+
+
+<section class="trending">
+    <h3 class="title">Coming Soon</h3>
+    <div class="content">
+        <div class="img_wrap">
+            <img src="{% static 'clothing/images/paperchase2.jpeg' %}" alt="" style="height: 500px; width: 500px;">
+        </div>
+
+        <div class="wrap">
+            <h3>Paperchase Logo</h3>
+            <p>best choice</p>
+            <p>£50</p>
+        </div>
+    </div>
+</section>
+
+
  
 {% if cloth_list %}
-<div class="row">
+<div class="row justify-content-around">
     {% for cloth in cloth_list %}
-    <div class="col my-1">
-        <div class="card">
-            <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}" style="height: 320px;">
-            <div class="card-body text-center">
+    <div class="shadow p-1 bg-white rounded col-3 my-5">
+        <a href="{% url 'clothing:cloth_detail' cloth.id %}">
+        <div class="card" style="max-width: 18rem;">
+            <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}" style="height: 200px;">
+            <div class="card-body text-right" style="color:black">
                 <h4>{{ cloth.name }}</h4>
                 <p>{{ cloth.material_type }}</p>
                 <p>£ {{ cloth.price }}</p>
-                <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="btn btn-primary">view details</a>
+                <i style='font-size:24px' class='fas'>&#xf30b;</i>
             </div>
         </div>
+        </a>
     </div>
     {% endfor %}
 </div>
 {% endif %}
  
  
-<div class="text-center my-4">
-    <a href="{% url 'clothing:cloth_list' %}" class="btn btn-md btn-success btn-block">Load More</a>
+<div class="text-center my-5">
+    <a href="{% url 'clothing:cloth_list' %}" class="btn btn-md btn btn-outline-dark">Load More</a>
 </div>
  
 {% endblock content %}

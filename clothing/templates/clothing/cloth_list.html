@@ -9,15 +9,15 @@
         {% for cloth in cloth_list %}
         <div class="col my-1">
             <div class="card">
-                <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}" style="height: 320px;">
+                <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}" style="height: 350px;">
                 <div class="card-body text-center">
                     <h4>{{ cloth.name }}</h4>
                     <p>{{ cloth.material_type }}</p>
                     <p>£ {{ cloth.price }}</p>
                    
                     <div class="text-center my-2">
-                            <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="btn btn-primary">view</a>
-                        <a href="{% url 'cart:add_to_cart' cloth.id %}" class="btn btn-md btn-outline-success">cart</a>
+                            <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="{{ cloth.image.url }}"></a>
+                        <a href="{% url 'cart:add_to_cart' cloth.id %}" class="btn btn-md btn-outline-dark">Add to cart</a>
                     </div>
                 </div>
             </div>

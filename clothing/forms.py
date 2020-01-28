@@ -3,6 +3,7 @@ from clothing.models import Cloth
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+
 class ClothForm(forms.ModelForm):
     class Meta:
         model = Cloth
@@ -38,3 +39,5 @@ class SignUpForm(UserCreationForm):
                     'password1', 
                     'password2'
         )
+
+    

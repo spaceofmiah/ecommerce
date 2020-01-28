@@ -4,6 +4,8 @@ from django.http import HttpResponseRedirect
 from clothing.models import Cloth
 from clothing.forms import ClothForm, ClothForm, SignUpForm
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
+
 
 def index_page(request):
     """
@@ -26,8 +28,10 @@ def cloth_list(request):
 def handle_cloth_search(request):
     """
     handles all request to search for cloth products
+
+    : request -> HttpRequest object
     """
-    searched_name = request.POST['cloth_name']
+    searched_name = request.GET.get('cloth_name')
     search_result = Cloth.objects.filter(name__icontains=searched_name)
     return render(request, 'clothing/search_result_list.html', 
                                         {'search_result': search_result})
@@ -103,3 +107,21 @@ def sign_up_handler(request):
     return render(
         request, 'clothing/create_new_user.html', {'form': form}
     )
+
+
+def contact_us(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # send email code goes here
+            return HttpResponse('Thanks for contacting us!')
+    else:
+        form = ContactForm()
+
+    return render(request, 'clothing/contact_us.html', {'form': form})
+
+def about_us(request):
+    if request.method == 'POST':
+     # for POST request only
+     return HttpResponseRedirect(reverse('clothing:about_us'))
+    

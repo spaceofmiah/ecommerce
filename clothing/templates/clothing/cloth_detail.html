@@ -4,24 +4,31 @@
 {% block content %}
  
 <h1 class="my-3 text-center">{{cloth.name}} Details</h1>
- 
-<div class="cloth">
-    <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}">
-    <h4>{{ cloth.name }}</h4>
+
+    
+    <div class="media" style="width: 20rem;">
+    <img src="{{ cloth.image.url }}" class="img-thumbnail align-self-start mr-5" alt="{{ cloth.name }}">
+    
+    <div class="media-body lead my-1">
+    <h4 class="mt-0">{{ cloth.name }}</h4>
     <p>{{ cloth.available_stock }} left in stock</p>
     <p>{{ cloth.material_type }}</p>
     <p>£ {{ cloth.price }}</p>
     <p>{{ cloth.description }}</p>
 </div>
+</div>
+
  
 <div class="text-center">
     {% if request.user.is_staff == True %}
-    <a href='{% url "clothing:delete_cloth" cloth.id %}' class="btn btn-md btn-outline-danger"> trash </a>
+    <a href='{% url "clothing:delete_cloth" cloth.id %}' class="btn btn-md btn btn-dark"> trash </a>
  
-    <a href="{% url 'clothing:update_cloth' cloth.id %}" class="btn btn-md btn-outline-primary">edit</a>
+    <a href="{% url 'clothing:update_cloth' cloth.id %}" class="btn btn-md btn btn-dark">edit</a>
     {% endif %}
- 
-    <a href="{% url 'cart:add_to_cart' cloth.id %}" class="btn btn-md btn-outline-success">cart</a>
+    
+    <a href="{% url 'clothing:cloth_list' %}" class="btn btn-md btn btn-dark">continue shopping</a>
+    <a href="{% url 'cart:add_to_cart' cloth.id %}" class="btn btn-md btn btn-dark">Add to cart</a>
+    
 </div>
  
 {% endblock content %}

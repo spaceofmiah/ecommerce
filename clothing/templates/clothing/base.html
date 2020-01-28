@@ -1,47 +1,58 @@
 {% load static %}
 {% load bootstrap4 %}
- 
+
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %} {% endblock title %} lowCost</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+        integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
     {% bootstrap_css %}
     <link href="{% static 'clothing/styles.css' %}" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
- 
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand mr-auto mr-lg-0" href="{% url 'clothing:index' %}">lowCost</a>
- 
-        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+
+<body class="bg-white">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark justify-content-lg-center">
+        <a class="navbar-brand" href="{% url 'clothing:index' %}">lowCost</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
- 
-        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active navbar-left">
+
                     <a class="nav-link" href="{% url 'clothing:index' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'clothing:cloth_list' %}">clothes</a>
+                    <a class="nav-link" href="{% url 'clothing:cloth_list' %}">Clothes</a>
                 </li>
- 
+
                 {% if request.user.is_staff %}
                 <li class="nav-item">
                     <a href="{% url 'clothing:create_cloth' %}" class="nav-link text-warning">add new cloth</a>
                 </li>
                 {% endif %}
- 
+
+                <form class="form-inline my-2 my-lg-0" action="{% url 'clothing:handle_cloth_search' %}" method="GET">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" type="text" name="cloth_name" id="id_cloth_name"
+                        placeholder="Enter cloth name" aria-label="Search">
+
+                    <a href="{% url 'clothing:handle_cloth_search' %}"><i class="fas fa-search" style="color:white"></i>
+                </form>
+
                 {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                            Hello, {{ request.user.first_name }}
+                        aria-haspopup="true" aria-expanded="false">
+                        Welcome back, {{ request.user.first_name }}
+                        <i class="fas fa-user"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item text-danger" href="{% url 'logout' %}">logout</a>
@@ -52,30 +63,87 @@
                     <a class="nav-link btn btn-md btn-outline-warning" href="{% url 'login' %}">login</a>
                 </li>
                 {% endif %}
-            </ul>
+                <ul class="navbar-right">
+                    <a href="{% url 'cart:cart_list' %}" class="btn btn-dark btn-sm">
+                        <i class="fas fa-shopping-cart" id="cart"></i>
+                        <span class="badge badge-light">{{ request.session.cart_item_count }}</span>
+                    </a>
+                </ul>
         </div>
     </nav>
- 
-   
- 
-    <main role="main" class="container py-4">
-       
-        <div class="shopping-cart">
-            <a href="{% url 'cart:cart_list' %}" class="btn btn-primary btn-lg">
-                <i class="fas fa-shopping-basket" id="basket"></i>
-                <span class="badge badge-light">{{ request.session.cart_item_count }}</span>
-            </a>
-        </div>
-   
-       
+
+
+
+    <main role="main" class="container py-2">
+
+
+
+
         {% block content %}
- 
+
         {% endblock content %}
-       
-    </main>
-     
-    {% bootstrap_javascript jquery='full' %}
-    <script src="{% static 'clothing/script.js' %}"></script>
+        <div class="row">
+            <div class="col-sm-6" style="background-color:lavender;">
+            <article>
+                <h4 class="title">How to have fab dress collection</h4>
+                <p>
+                    Donne de et le de volupté parce dont dit pleurs d'un,
+                    genoux quel pour tete qu'un d'athlete. Fait de et cette
+                    mensonge mettrait haut l'elégance, yeux la beauté un
+                    aussi qu'elle. Le masque extase monstre mon mal
+                </p>
+                <a href="">read more</a>
+            </article></div>
+
+            <div class="col-sm-6" style="background-color:lavenderblush;">
+            <article>
+                <h4 class="title">Killer dress patterns for the year</h4>
+                <p>
+                    Donne de et le de volupté parce dont dit pleurs d'un,
+                    genoux quel pour tete qu'un d'athlete. Fait de et cette
+                    mensonge mettrait haut l'elégance, yeux la beauté un
+                    aussi qu'elle. Le masque extase monstre mon mal
+                </p>
+
+                <a href="">read more</a>
+            </article></div>
+            </div>
+            
+
+
+
+        <footer class="blog-footer">
+            <p>Paper chase customization company</p>
+            <p>About us</p>
+            <p>Contact us</p>
+            <div class="navbar navbar-inverse navbar-static-bottom" role="navigation">
+                <div class="navbar-text pull-left">
+                </div>
+                <div class="navbar-text pull-right">
+                    <!-- Add in your social media / github links here -->
+                    <!--Facebook-->
+                    <a href="https://www.facebook.com/papper.chaselogo.9" class="fb-ic mr-3" role="button"><i
+                            class="fab fa-lg fa-facebook-f" style="color:#3b5998"></i></a>
+                    <!--Twitter-->
+                    <a href="https://twitter.com/paperchaselogo" class="tw-ic mr-3" role="button"><i
+                            class="fab fa-lg fa-twitter" style="color:#00acee"></i></a>
+                    <!--Instagram-->
+                    <a href="https://www.instagram.com/paperchase9711/" class="ins-ic mr-3" role="button"><i
+                            class="fab fa-lg fa-instagram" style="color:#bc2a8d"></i></a>
+                    <!--Pinterest-->
+                    <a href="https://www.pinterest.co.uk/paperchaselogo/" class="pin-ic mr-3" role="button"><i
+                            class="fab fa-lg fa-pinterest" style="color:#c8232c"></i></a>
+                </div>
+                <!--Below is the copyright information for the site. You can fill in your own here.-->
+                <div class="navbar-text pull-left">
+                    &copy; Paperchaselogo Studio, 2020
+                </div>
+            </div>
+        </footer>
+
+        {% bootstrap_javascript jquery='full' %}
+        <script src="{% static 'clothing/script.js' %}"></script>
+
 </body>
- 
+
 </html>

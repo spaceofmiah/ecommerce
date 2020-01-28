@@ -22,10 +22,10 @@
                                     <form action="{% url 'cart:increment_quantity' %}" method="GET">
                                         <input type="hidden" value="{{ item.id }}" name="item_id" id="id_item_id">
                                         <input type="number" style="width: 30%;" class="form-control" name="quantity" id="id_quantity" value="{{ item.quantity }}">
-                                        <input type="submit" value="update quantity" class="my-1 btn text-sm btn-sm btn-primary"/>
+                                        <input type="submit" value="update quantity" class="my-1 btn text-sm btn-sm btn-dark"/>
                                     </form>
                                 </div>
-                                <a href='{% url "cart:remove_from_cart" item.id %}' class="text-danger btn btn-block btn-outline-danger"> remove </a>
+                                <a href='{% url "cart:remove_from_cart" item.id %}' class="text-dark btn btn-block btn-outline-dark"> remove </a>
                             </div>
                         </div>
                     </div>
@@ -45,3 +45,4 @@
         </div>
         {% endif %}
 {% endblock content %}
+

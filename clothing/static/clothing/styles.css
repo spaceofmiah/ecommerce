@@ -5,15 +5,17 @@ body {
  
 body {
   padding-top: 56px;
+  font-family: gf-sanpro;
+  background-color: black;
 }
  
 .fa, .fas  {
-  font-size: 36px !important;
+  font-size: 20px !important;
 }
  
 @media screen and (max-width: 620px){
   .fa, .fas {
-    font-size: 20px !important;
+    font-size: 28px !important;
   }
 }
  
@@ -25,11 +27,22 @@ body {
   z-index: 1;
 }
  
-.shopping-cart .basket {
+.shopping-cart .cart {
   font-size: 20px !important;
 }
- 
-@media (max-width: 991.98px) {
+
+.btn-dark {
+  background-color: black!important;
+}
+
+.btn-outline {
+  color: black!important;
+}
+
+
+
+
+@media (max-width: 999.98px) {
   .offcanvas-collapse {
     position: fixed;
     top: 56px; /* Height of navbar */
@@ -40,7 +53,7 @@ body {
     padding-left: 1rem;
     overflow-y: auto;
     visibility: hidden;
-    background-color: #343a40;
+    background-color: purple;
     transition: visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
     transition: transform .3s ease-in-out, visibility .3s ease-in-out;
     transition: transform .3s ease-in-out, visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
@@ -52,6 +65,11 @@ body {
   }
 }
  
+.bg-dark {
+  background-color: #060606!important;
+}
+
+
 .nav-scroller {
   position: relative;
   z-index: 2;
@@ -77,22 +95,76 @@ body {
   padding-top: .75rem;
   padding-bottom: .75rem;
   font-size: .875rem;
-  color: #6c757d;
+  color: #060606;
 }
  
 .nav-underline .nav-link:hover {
-  color: #007bff;
-}
+  color: black;
+  }
  
 .nav-underline .active {
   font-weight: 500;
-  color: #343a40;
+  background-color: black;
+  color: #fff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: var(--white);
 }
  
-.text-white-50 { color: rgba(255, 255, 255, .5); }
+.text-white-50 { color: rgba(255, 255, 255, .1); }
  
 .bg-purple { background-color: #6f42c1; }
  
 .lh-100 { line-height: 1; }
 .lh-125 { line-height: 1.25; }
 .lh-150 { line-height: 1.5; }
+
+.media-body {
+  margin-right: 10px;
+}
+
+
+.blog-footer {
+  padding: 2.5rem 0;
+  color: #fff;
+  text-align: center;
+  background-color: #060606;
+  border-top: .05rem solid #e5e5e5;
+  line-height: 1.0;
+  height: 300px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  }
+
+.form-control {
+  border-radius: 2rem;
+}
+
+
+
+#jumbo{
+  background: rgba(194, 183, 183, 0.5);
+  color: rgba(255, 255, 255);
+  position: relative;
+  padding: 50px;
+}
+
+.inner{
+  color:rgb(250,250,250);
+  opacity: 1;
+}
+
+body{
+  padding-top: 75px;
+}
+
+.hero {
+  text-align: right;
+}
+.img-fluid {
+  width: 1000;
+  height: 500;
+}

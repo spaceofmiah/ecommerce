@@ -51,4 +51,14 @@ urlpatterns = [
             'create-new-user', 
             views.sign_up_handler,
             name='create_new_user'),
+
+    path(
+            'about-us', 
+            views.about_us,
+            name='about_us'),
+
+    path(
+            'contact-us', 
+            views.contact_us,
+            name='contact_us'),
 ]
