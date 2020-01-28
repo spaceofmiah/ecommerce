@@ -42,7 +42,6 @@ def cart_list(request):
     })
 
 
-
 def add_product_to_cart(request, product_id):
     '''
     handles request to add a product to cart

@@ -11,7 +11,6 @@ class CartMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-
         cart = ''
 
         if request.session.get('cart_present', False):

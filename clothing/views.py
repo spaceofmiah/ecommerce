@@ -1,6 +1,8 @@
-
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate, login
+
+from clothing.forms import ClothForm, SignUpForm
 from clothing.models import Cloth
 from clothing.forms import ClothForm, ClothForm, SignUpForm
 from django.contrib.auth import authenticate, login
@@ -10,6 +12,8 @@ from django.http import HttpResponse
 def index_page(request):
     """
     handles all request for index page 
+
+    : request -> HttpRequest object
     """
     cloth_list = Cloth.objects.all().order_by('name')[:3]
     return render(request, 'clothing/index_page.html', 
@@ -20,6 +24,8 @@ def cloth_list(request):
     handles all request to view all available cloth
     and returns a list of all clothes as a response passed
     to the cloth_list HTML file
+
+    : request -> HttpRequest object
     """
     cloth_list = Cloth.objects.all()
     context = {'cloth_list': cloth_list}
@@ -41,6 +47,8 @@ def handle_cloth_creation(request):
     handles all request for creating a cloth, for a GET
     request, the cloth creation form is rendered, for a POST
     request, the submitted data are used to create a cloth object
+
+    : request -> HttpRequest object
     """
     if request.user.is_authenticated == False:
         # if the user is not authenticated at all (meaning the user is not logged in)
@@ -57,8 +65,8 @@ def handle_cloth_creation(request):
         form = ClothForm(request.POST, request.FILES)
         
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('clothing:index'))
+            cloth = form.save()
+            return HttpResponseRedirect(cloth.get_absolute_url())
 
     # for GET request only
     form = ClothForm()
@@ -71,12 +79,21 @@ def cloth_detail(request, cloth_id):
     handles all request to view cloth detail
     and returns detail of clothes as a response passed
     to the cloth_detail HTML file
+
+    : request -> HttpRequest object
+    : cloth_id -> Primary key or Identity of the cloth to be updated
     """
-    cloth_detail = Cloth.objects.get(pk=cloth_id)
-    context = {'cloth': cloth_detail}
+    cloth = Cloth.objects.get(pk=cloth_id)
+    context = {'cloth': cloth}
     return render(request, 'clothing/cloth_detail.html', context)
 
 def update_cloth(request, id): 
+    """
+    handles all request to update cloth instance
+
+    : request -> HttpRequest object
+    : cloth_id -> Primary key or Identity of the cloth to be updated
+    """
     instance = get_object_or_404(Cloth, id=id)
     form = ClothForm(request.POST or None, instance=instance)
     if form.is_valid():
