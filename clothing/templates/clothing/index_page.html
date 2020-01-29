@@ -11,7 +11,7 @@
         Hello {{ request.user.first_name }} {{ request.user.last_name }},<br> with 
         {% endif %}
         The lowest cost you can get quality clothes</strong></em></h1></div>
-    <div class="col-md-6 col-xs-6">
+    <div class="col-md-6 col-xs-6"><br><br><br>
         <img src="{% static 'clothing/images/paperchase.jpeg' %}" alt="" style="height: 700px; width: 700px;">
     </div>
 </div>
@@ -30,9 +30,7 @@
             <p>£50</p>
         </div>
     </div>
-    {% endfor %}
 </div>
-{% endif %}
 
 
  
