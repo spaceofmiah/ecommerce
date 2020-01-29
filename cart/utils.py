@@ -27,6 +27,17 @@ def _create_cart_item_helper(product):
 
 
 
+
+def store_item_count_on_session(request):
+    cart = ''
+    if request.session.get('cart_present', False):
+        # if a cart is present for the user, 
+        # then retrieve the cart and get it's total item count
+        cart = Cart.objects.get(pk=int(request.session['cart']))
+        request.session['cart_item_count'] = cart.get_total_item()
+
+
+
 def add_to_cart(request, product):
     """
     adds a product to cart and increments
@@ -47,7 +58,7 @@ def add_to_cart(request, product):
         request.session['cart_item_count'] = cart.get_total_item()
 
 
-    cart_id = int(request.session['cart'])
+    cart_id = int(request.session.get('cart', False))
 
     # - retrieve the cart from the Cart object
     cart = get_object_or_404(Cart, pk=cart_id)
@@ -91,6 +102,8 @@ def add_to_cart(request, product):
         cart_item = _create_cart_item_helper(product)
         cart.items.add(cart_item)
         cart.save()
+
+    store_item_count_on_session(request)
     return cart
 
 
@@ -104,7 +117,7 @@ def remove_from_cart(request, cart_item):
     : cart_item -- An instance of cart_item
     """
     # - get the cart id of the requesting user from session
-    cart_id = int(request.session['cart'])
+    cart_id = int(request.session.get('cart', False))
 
     # - retrieve the cart from the Cart object
     cart = get_object_or_404(Cart, pk=cart_id)
@@ -114,10 +127,9 @@ def remove_from_cart(request, cart_item):
 
 
 
-
 def get_cart_items(request):
     # get the user's cart from session
-    if (request.session['cart_present']):
+    if (request.session.get('cart_present', False)):
         cart_id = request.session['cart']    
         cart = Cart.objects.get(pk=cart_id)
         return cart.items.all()
