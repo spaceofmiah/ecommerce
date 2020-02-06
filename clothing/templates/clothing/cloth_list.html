@@ -5,7 +5,8 @@
     <h2 class="text-center mb-4">All Clothes</h2>
        
     {% if cloth_list %}
-    <div class="row">
+    <div class="media" style="width: 20rem;">
+        <img src="{{ cloth.image.url }}" class="img-thumbnail align-self-start mr-5" alt="{{ cloth.name }}">
         {% for cloth in cloth_list %}
         <div class="col my-1">
             <div class="card">
@@ -16,7 +17,7 @@
                     <p>£ {{ cloth.price }}</p>
                    
                     <div class="text-center my-2">
-                            <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="{{ cloth.image.url }}"></a>
+                    <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="btn btn-md btn-outline-dark">view details</a>
                         <a href="{% url 'cart:add_to_cart' cloth.id %}" class="btn btn-md btn-outline-dark">Add to cart</a>
                     </div>
                 </div>

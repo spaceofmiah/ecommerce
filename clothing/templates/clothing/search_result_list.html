@@ -5,7 +5,8 @@
     <h2 class="text-center mb-4">Results for search</h2>
        
     {% if search_result %}
-    <div class="row">
+    <div class="media" style="width: 20rem;">
+        <img src="{{ cloth.image.url }}" class="img-thumbnail align-self-start mr-5" alt="{{ cloth.name }}">
             {% for cloth in search_result %}
             <div class="col my-1">
                 <div class="card">
@@ -14,7 +15,7 @@
                         <h4>{{ cloth.name }}</h4>
                         <p>{{ cloth.material_type }}</p>
                         <p>£ {{ cloth.price }}</p>
-                        <a href="#" class="btn btn-md btn btn-dark">view details</a>
+                        <a href="{% url 'clothing:cloth_detail' cloth.id %}" class="btn btn-md btn btn-dark">view details</a>
                     </div>
                 </div>
             </div>
