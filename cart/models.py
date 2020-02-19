@@ -143,6 +143,16 @@ class Cart(models.Model):
         for item in self.items.all():
             total_item_count += item.quantity
         return total_item_count
+
+    def get_total_amount(self):
+        """
+        Returns the total number of items present
+        within cart
+        """
+        total_item_price = 0
+        for item in self.items.all():
+            total_item_price += item.product.price
+        return total_item_price
     
 
     # An online cart cannot have two distinct representation of 

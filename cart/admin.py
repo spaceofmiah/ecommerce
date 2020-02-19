@@ -7,5 +7,8 @@ from cart.models import Cart, CartItem
 class CartItemAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'date_added']
 
+class CartAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'get_total_amount']
+
 admin.site.register(CartItem, CartItemAdmin)
-admin.site.register (Cart)
+admin.site.register (Cart, CartAdmin)
