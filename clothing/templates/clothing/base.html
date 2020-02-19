@@ -70,8 +70,8 @@
                 </li>
                 {% endif %}
                 <ul class="navbar-right">
-                    <a href="{% url 'cart:cart_list' %}" class="btn btn-dark btn-sm">
-                        <i class="fas fa-shopping-cart" id="cart"></i>
+                    <a href="{% url 'cart:cart_list' %}" class="btn btn-black btn-sm">
+                        <i class="fas fa-shopping-cart" id="cart" style="color:white"></i>
                         <span class="badge badge-light">{{ request.session.cart_item_count }}</span>
                     </a>
                 </ul>

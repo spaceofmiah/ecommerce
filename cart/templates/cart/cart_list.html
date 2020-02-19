@@ -2,46 +2,83 @@
 {% load static %}
 {% block title %} lowCost - {% endblock title %}
 {% block content %}
-        <h2>Cart List</h2>
-        <div class="cloth-list">
-            {% if cart %}
-            <div class="row">
-                {% for item in cart %}
+<h1>Shopping Cart</h1>
+<br><br><br><br>
+<div class="container">
+  <div class="card shopping-cart">
+          <div class="card-header bg-dark text-light">
+               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+               Shipping cart
+               <a href="{% url 'clothing:cloth_list' %}" class="btn btn-outline-info btn-sm pull-right">Continiu shopping</a>
+               <div class="clearfix"></div>
+          </div>
+          {% if cart %}
+          <div class="row">
+          {% for item in cart %}
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-12 col-sm-12 col-md-2 text-center">
+                          <img src="{{ item.get_underlying_image }}" src="http://placehold.it/160x120" alt="{{ cloth.name }}" width="160" height="120">
+                  </div>
+                  <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+                      <h4 class="product-name"><strong>{{ item }}</strong></h4>
+                      <h4>
+                          <small>Cotton</small>
+                      </h4>
+                  </div>
+                  <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+                      <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                          <h6><strong>£ {{ item.product.price }} <span class="text-muted">x</span></strong></h6>
+                          <p class="ml-4 mt-1 text-sm">{{ item.date_added|date:'Y m d' }}</p>
+                      </div>
+                      <div class="col-4 col-sm-4 col-md-4">
+                          <p>quantity</p>
+                          <form action="{% url 'cart:increment_quantity' %}" method="POST">{% csrf_token %}
+                              <input type="hidden" value="{{ item.id }}" name="item_id" id="id_item_id">
+                              <input type="number" style="width: 70%;" class="form-control" name="quantity"
+                                  id="id_quantity" value="{{ item.quantity }}">
+                              <input type="submit" value="update quantity"
+                                  class="my-1 btn text-sm btn-sm btn-primary" />
+                          </form>
+                      </div>
+                      <div class="col-2 col-sm-2 col-md-2 text-right">
+                          <a href='{% url "cart:remove_from_cart" item.id %}'>
+                              <button type="button" class="btn btn-outline-danger btn-xs">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                              </button>
+                          </a>
+                      </div>
+                  </div>
+                  <hr>
+                  {% endfor %}
+                      <div>
+                          {% else %}
+                          <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">
+                              No items in cart
+                          </p>
+                          {% endif %}
+                      </div>
+                      {% if cart %}
+                      <div class="pull-right" style="margin: 10px">
+                          <a href="{% url 'cart:complete_checkout' %}" class="btn btn-success pull-right">Checkout</a>
+                          <div class="pull-right" style="margin: 5px">
+                      Total price: {{ item.total_price }}<b>50.00€</b>
+                  </div>
+                  {% endif %}
+                  
+                  <br><br><br><br><br><br>
+                  {% endblock content %}
+              </div>
+          </div>
+      </div>
 
-                    <div class="col-sm-6 col-lg-3 my-1">
-                        <div class="card py-1">
-                            <img src="{{ item.get_underlying_image }}" alt="{{ cloth.name }}" style="height: 250px;">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <h4>{{ item }}</h4>
-                                    <p class="ml-4 mt-1 text-sm">{{ item.date_added|date:'Y m d' }}</p>
-                                </div>
-                                <p>price : <span class="font-weight-bold"> £ {{ item.product.price }} </span></p>
-                                <div class="mb-2">
-                                    <p>quantity</p>
-                                    <form action="{% url 'cart:increment_quantity' %}" method="POST">{% csrf_token %}
-                                        <input type="hidden" value="{{ item.id }}" name="item_id" id="id_item_id">
-                                        <input type="number" style="width: 30%;" class="form-control" name="quantity" id="id_quantity" value="{{ item.quantity }}">
-                                        <input type="submit" value="update quantity" class="my-1 btn text-sm btn-sm btn-primary"/>
-                                    </form>
-                                </div>
-                                <a href='{% url "cart:remove_from_cart" item.id %}' class="text-danger btn btn-block btn-outline-danger"> remove </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p style="color: red; text-align: center; font-size: 16px; font-weight: 500">
-                    No items in cart
-                </p>
-            {% endif %}
-        </div>
-
-        {% if cart %}
-        <div class="my-4">
-            <a href="{% url 'cart:complete_checkout' %}" class="btn btn-lg btn-success">Checkout</a>
-        </div>
-        {% endif %}
-{% endblock content %}
+      {% block script %}
+    <script type="text/javascript">
+        let totalPrices = document.querySelectorAll('span.total-price');
+        let total = 0
+        totalPrices.forEach(element => {
+            total += parseInt(element.innerText);
+        });
+        document.getElementById('total-amount').innerText = "Total Cost  is " + total;
+    </script>
+{% endblock script %}
