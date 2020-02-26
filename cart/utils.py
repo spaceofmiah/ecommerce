@@ -134,3 +134,10 @@ def get_cart_items(request):
         cart = Cart.objects.get(pk=cart_id)
         return cart.items.all()
     return []
+
+def get_total_item_price(request):
+    if (request.session.get('cart_present', False)):
+        cart_id = request.session['cart']    
+        cart = Cart.objects.get(pk=cart_id)
+        return cart.get_total_amount()
+    return 0

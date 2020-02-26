@@ -14,7 +14,12 @@ from cart.models import (
     UNDERLYING_PRODUCT_MODEL,
     CartItem,
 )
-from cart.utils import add_to_cart, remove_from_cart, get_cart_items
+from cart.utils import (
+    add_to_cart, 
+    remove_from_cart, 
+    get_cart_items, 
+    get_total_item_price
+)
 
 
 # https://docs.djangoproject.com/en/2.2/topics/settings/#calling-django-setup-is-required-for-standalone-django-usage
@@ -37,8 +42,10 @@ def cart_list(request):
     A cart is completed when checkout has been done.
     '''
     cart_items = get_cart_items(request)
+    items_total_amount = get_total_item_price(request)
     return render(request, 'cart/cart_list.html', {
-        'cart': cart_items
+        'cart': cart_items,
+        'items_total_amount': items_total_amount,
     })
 
 
