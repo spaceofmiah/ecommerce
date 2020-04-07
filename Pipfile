@@ -10,6 +10,7 @@ django = "*"
 pillow = "*"
 django-bootstrap4 = "*"
 python-memcached = "*"
+stripe = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.6"
