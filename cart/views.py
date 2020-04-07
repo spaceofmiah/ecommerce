@@ -1,3 +1,4 @@
+import math
 from django.apps import apps
 from django.conf import settings
 from django.http import HttpResponseRedirect
@@ -21,6 +22,8 @@ from cart.utils import (
     get_total_item_price
 )
 
+import stripe
+
 
 # https://docs.djangoproject.com/en/2.2/topics/settings/#calling-django-setup-is-required-for-standalone-django-usage
 # helpful link
@@ -31,7 +34,8 @@ if type(UNDERLYING_PRODUCT_MODEL) == str:
     UNDERLYING_PRODUCT_MODEL = apps.get_model(path[0], path[1])
 
 
-
+## Setup stripe secret key
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def cart_list(request):
@@ -83,7 +87,35 @@ def process_complete_checkout(request):
         cart_id = request.session['cart']    
         cart = Cart.objects.get(pk=cart_id)
         cart_items = cart.items.all()
-    return render(request, 'cart/complete_checkout.html', {'cart_items': cart_items})
+
+
+        # place all items in a user's cart (which are the items to be checkout) in a
+        # list of dictionary where each dictionary represents an item in a user's
+        # cart. below code shows a sample of how to iterate on cart object
+        list_of_items = list()
+        for item in cart_items:
+            item = {
+                'name': item.product.name,
+                'description': item.product.description,
+                'images': [item.get_underlying_image(),],
+                'amount': math.ceil(item.total_price()*100),
+                'currency': 'EUR',
+                'quantity': item.quantity
+            }
+            list_of_items.append(item)
+        
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items = list_of_items,
+            # when user completes payment successfully, they'll be redirected to here
+            success_url='http://localhost:8000/success?session_id={CHECKOUT_SESSION_ID}',
+            # when user decide on checkout page that they don't want to proceed with payment
+            # then they'll be redirected here
+            cancel_url='http://localhost:8000/',
+        )
+
+    context = {'CHECKOUT_SESSION_ID': session.id, 'cart_items': cart_items,}
+    return render(request, "cart/complete_checkout.html", context)
 
 
 
@@ -100,3 +132,8 @@ def increment_quantity(request):
     cart_items = get_cart_items(request)
     request.session.modified = True
     return redirect('cart:cart_list')
+
+
+
+def success_view(request):
+    return render(request, 'cart/success.html')
