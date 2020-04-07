@@ -150,3 +150,15 @@ LOGOUT_REDIRECT_URL = 'login'
 
 ## Cart application configuration
 UNDERLYING_PRODUCT_MODEL = 'clothing.Cloth'
+
+
+
+# third party application global setup
+from . import secret
+
+if DEBUG:
+    # this will be used during development
+    STRIPE_SECRET_KEY = secret.stripe_keys['STRIPE_SECRET_KEY']
+else:
+
+    STRIPE_SECRET_KEY = secret.stripe_keys['STRIPE_SECRET_KEY']
