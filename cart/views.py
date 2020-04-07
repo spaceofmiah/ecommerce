@@ -108,7 +108,7 @@ def process_complete_checkout(request):
             payment_method_types=['card'],
             line_items = list_of_items,
             # when user completes payment successfully, they'll be redirected to here
-            success_url='http://localhost:8000/success?session_id={CHECKOUT_SESSION_ID}',
+            success_url='http://localhost:8000/cart/payment-success?session_id={CHECKOUT_SESSION_ID}',
             # when user decide on checkout page that they don't want to proceed with payment
             # then they'll be redirected here
             cancel_url='http://localhost:8000/',
